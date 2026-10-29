@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getEnv } from "@/lib/env";
+import { getEnv, isIndexable } from "@/lib/env";
 import type { Lang } from "@/lib/format";
 import { pagePath, type PageKey } from "@/lib/routes";
 
@@ -76,5 +76,7 @@ export function pageMetadata(key: PageKey, lang: Lang): Metadata {
       alternateLocale: lang === "id" ? "en_US" : "id_ID",
     },
     icons: { icon: "/static/logo-mark.png" },
+    // Hidden from search engines until SITE_INDEXABLE=true.
+    robots: isIndexable() ? { index: true, follow: true } : { index: false, follow: false },
   };
 }

@@ -8,9 +8,13 @@ const schema = z.object({
   CMS_ORIGIN: z.url(),
   AUTH_SECRET: z.string().min(32),
   UPLOAD_DIR: z.string().min(1).default("./uploads"),
+  // "true" lets search engines index the public site. Anything else keeps it hidden from them.
+  SITE_INDEXABLE: z.string().optional(),
 });
 
 export type Env = z.infer<typeof schema>;
+
+export const isIndexable = () => getEnv().SITE_INDEXABLE === "true";
 
 let cached: Env | undefined;
 

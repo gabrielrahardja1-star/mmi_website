@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { decide } from "@/lib/host-routing";
-import { getEnv } from "@/lib/env";
+import { getEnv, isIndexable } from "@/lib/env";
 import { LANG_COOKIE } from "@/lib/routes";
 
 export function proxy(request: NextRequest) {
@@ -21,6 +21,9 @@ export function proxy(request: NextRequest) {
     case "notFound":
       return new NextResponse("Not found", { status: 404 });
     case "rewrite": {
+      // Rewriting relies on the server being started with HOSTNAME=0.0.0.0 (as in the Dockerfile). Started
+      // with another hostname (e.g. 127.0.0.1) Next treats these rewrites as external and fetches them from
+      // itself with the wrong Host header, so every page 404s. dev and `next start` hide this.
       const url = request.nextUrl.clone();
       url.pathname = decision.pathname;
       response = NextResponse.rewrite(url);
@@ -30,8 +33,9 @@ export function proxy(request: NextRequest) {
       response = NextResponse.next();
   }
 
-  // The editor must never be indexed.
-  if (request.headers.get("host")?.toLowerCase() === env.CMS_HOST.toLowerCase()) {
+  // The editor is never indexed. The public site isn't either until SITE_INDEXABLE=true.
+  const host = request.headers.get("host")?.toLowerCase();
+  if (host === env.CMS_HOST.toLowerCase() || (host === env.PUBLIC_HOST.toLowerCase() && !isIndexable())) {
     response.headers.set("X-Robots-Tag", "noindex, nofollow");
   }
   return response;
