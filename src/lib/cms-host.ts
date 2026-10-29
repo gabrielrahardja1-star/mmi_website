@@ -14,3 +14,11 @@ export function notFound(): Response {
 export function cmsHostGuard(request: Request): Response | null {
   return isCmsHost(request.headers.get("host")) ? null : notFound();
 }
+
+// Writes must come from the editor's own pages. Browsers always send Origin on fetch() with POST, PUT
+// and DELETE, so a missing or foreign Origin is refused. Complements the SameSite session cookie.
+export function originGuard(request: Request): Response | null {
+  const origin = request.headers.get("origin");
+  if (origin && origin.replace(/\/$/, "") === getEnv().CMS_ORIGIN.replace(/\/$/, "")) return null;
+  return Response.json({ error: "Permintaan ditolak." }, { status: 403 });
+}

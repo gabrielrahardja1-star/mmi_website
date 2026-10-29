@@ -1,4 +1,4 @@
-import { cmsHostGuard } from "@/lib/cms-host";
+import { cmsHostGuard, originGuard } from "@/lib/cms-host";
 import { MAX_UPLOAD_BYTES, UploadError } from "@/lib/image-process";
 import { saveUpload } from "@/lib/media-store";
 import { mediaUrl } from "@/lib/media";
@@ -10,7 +10,7 @@ export const dynamic = "force-dynamic";
 // drafts too). The host and login checks run before the body is read, so anonymous callers can't
 // make the server buffer large uploads. src/proxy.ts deliberately skips this path for the same reason.
 export async function POST(request: Request) {
-  const blocked = cmsHostGuard(request);
+  const blocked = cmsHostGuard(request) ?? originGuard(request);
   if (blocked) return blocked;
   const user = await requireApiUser();
   if (user instanceof Response) return user;
