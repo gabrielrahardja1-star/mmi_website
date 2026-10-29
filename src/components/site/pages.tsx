@@ -148,12 +148,6 @@ export function HomePage({ content, edit }: PageProps) {
 }
 
 /* ================= Tentang Kami ================= */
-const draftBadge = (lang: ViewLang) => (
-  <span className="draft">
-    <Bi id="Draf" en="Draft" lang={lang} />
-  </span>
-);
-
 export function AboutPage({ content, edit }: PageProps) {
   const c = content.copy;
   const lang = content.lang;
@@ -189,7 +183,6 @@ export function AboutPage({ content, edit }: PageProps) {
             <Ed c={c} edit={edit} k="about-h2-1" as="h2" />
             <Ed c={c} edit={edit} k="about-p-1" as="p" />
             <Ed c={c} edit={edit} k="about-p-2" as="p" />
-            <Ed c={c} edit={edit} k="about-p-3" as="p" className="todo" />
           </div>
           <PhotoSlot
               lang={lang}
@@ -208,7 +201,7 @@ export function AboutPage({ content, edit }: PageProps) {
       <section id="visi" className="band-tint">
         <div className="wrap">
           <div className="head">
-            <Ed c={c} edit={edit} k="about-h2-2" as="h2" extra={draftBadge(lang)} />
+            <Ed c={c} edit={edit} k="about-h2-2" as="h2" />
           </div>
           <div className="vision">
             <div>
@@ -234,7 +227,7 @@ export function AboutPage({ content, edit }: PageProps) {
       <section id="nilai">
         <div className="wrap">
           <div className="head">
-            <Ed c={c} edit={edit} k="about-h2-3" as="h2" extra={draftBadge(lang)} />
+            <Ed c={c} edit={edit} k="about-h2-3" as="h2" />
           </div>
           <div className="values">
             {values.map(([h, p]) => (

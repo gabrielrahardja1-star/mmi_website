@@ -143,8 +143,6 @@ figcaption{font-size:.8rem;color:var(--ink-2)}
 .prose{display:grid;gap:var(--s2);font-size:1.05rem;color:var(--ink-2)}
 .prose h2{margin-bottom:var(--s1)}
 .split .ph{aspect-ratio:4/3}
-.todo{background:var(--warn-bg);border:1px dashed var(--warn-line);color:var(--warn-ink);padding:12px 14px;border-radius:var(--r);font-size:.92rem}
-.draft{display:inline-block;font:600 .7rem var(--body);letter-spacing:.06em;text-transform:uppercase;background:var(--warn-bg);border:1px solid var(--warn-line);color:var(--warn-ink);padding:2px 8px;border-radius:var(--r);margin-left:10px;vertical-align:middle;font-stretch:100%}
 .vision{display:grid;grid-template-columns:1fr 1fr;gap:var(--s5)}
 .vision > *{min-width:0}
 .vision blockquote{margin:0;font-family:var(--display);font-stretch:108%;font-weight:500;font-size:clamp(1.5rem,2.8vw,2.1rem);line-height:1.2;letter-spacing:-.01em;color:var(--ink)}
