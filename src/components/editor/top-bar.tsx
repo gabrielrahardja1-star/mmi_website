@@ -1,12 +1,28 @@
 "use client";
 
+import { useState } from "react";
 import { PAGE_LABEL } from "./config";
 import { PATHS, Svg } from "./icons";
 import type { Editor } from "./use-editor";
+import { authClient } from "@/lib/auth-client";
 import { PAGES, type PageKey } from "@/lib/routes";
 
 export function TopBar({ e }: { e: Editor }) {
+  const [leaving, setLeaving] = useState(false);
   const saving = e.saveState === "saving" || e.publishing;
+
+  // Log out, but never lose work: unsaved item changes trigger the usual warning, and a page-text
+  // autosave still in flight is allowed to finish first.
+  const logout = async () => {
+    if (!e.canSwitch()) return;
+    if (saving) {
+      e.showToast("Tunggu sebentar, perubahan masih disimpan.", true);
+      return;
+    }
+    setLeaving(true);
+    await authClient.signOut();
+    window.location.assign("/login");
+  };
   const statusClass = saving ? " saving" : e.unpublished ? " unpub" : "";
   const statusText = saving
     ? "Menyimpan…"
@@ -63,6 +79,10 @@ export function TopBar({ e }: { e: Editor }) {
       <a className="c-btn ghost" href="/akun" title={`Akun: ${e.user.name}`}>
         <Svg d={PATHS.user} size={16} />
       </a>
+      <button className="c-btn ghost" onClick={logout} disabled={leaving} title="Keluar dari editor">
+        <Svg d={PATHS.logout} size={16} />
+        <span className="e-prevlbl">Keluar</span>
+      </button>
       <button
         className="c-btn"
         disabled={!e.mayPublish || !e.unpublished || saving}
