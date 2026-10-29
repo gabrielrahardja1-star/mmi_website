@@ -401,11 +401,11 @@ Work through this list. Until `SITE_INDEXABLE` is `true`, search engines are tol
 
 - [ ] **Replace the placeholders** (the brief lists them as open items):
   - contact email in the footer and the HR email in the recruitment scam notice (edit them in the editor);
-  - social media links in the footer (currently inactive placeholders, in `src/components/site/site-footer.tsx`);
   - real photos for the hero, team and About slots, and original, text-free photos for news posts;
   - **the 4 sample job openings**: close or replace them (their titles end in "(contoh)");
-  - the Vision, Mission and Core Values (marked "Draf") need management sign-off, and the company
-    history paragraph in About is still waiting on management;
+  - the Vision, Mission and Core Values need management sign-off (their "Draf" badges were removed from
+    the site on 29 October 2026), and the company history paragraph in About (removed from the page until
+    the text arrives) is still waiting on management;
   - confirm the date of the ShalokalIndonesia press article;
   - the official logo as SVG, and a white version.
 - [ ] Read the content rules in section 12.

@@ -211,8 +211,11 @@ and where it differs. **`README.md` is the operating manual** (deploy, accounts,
 - Next buffers request bodies through the proxy and silently cuts them at 10 MB, so `/api/media` is
   excluded from the proxy matcher and checks host and login itself.
 
-### Still open (from section 9, unchanged)
+### Still open (from section 9)
 
-Vision, mission and values sign-off; company history paragraph; real contact and HR emails and social links;
+Social links are done (footer, `src/components/site/site-footer.tsx`). The "Draf" badges and the empty
+company-history box were removed from About; the text itself is still waiting on management.
+
+Vision, mission and values sign-off; company history paragraph; real contact and HR emails;
 real photos; the ShalokalIndonesia article date; the 4 placeholder jobs; logo SVG and white version. Plus: a
 "manage users" screen in the editor does not exist yet (accounts are managed on the server, README section 6).

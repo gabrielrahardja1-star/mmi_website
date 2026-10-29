@@ -11,8 +11,12 @@ const LABEL: Record<string, [string, string]> = {
   careers: ["Karir", "Careers"],
 };
 
-// Social links are placeholders until MMI supplies the real profile URLs (open item in CLAUDE.md §9).
-const SOCIAL = ["LinkedIn", "Instagram", "YouTube"];
+const SOCIAL: [string, string][] = [
+  ["Instagram", "https://www.instagram.com/mergecoal"],
+  ["Facebook", "https://www.facebook.com/share/1Hm1aw7847/"],
+  ["YouTube", "https://www.youtube.com/@mergecoal"],
+  ["TikTok", "https://www.tiktok.com/@pt.merge.mining.i"],
+];
 
 export function SiteFooter({ c, edit }: { c: Copy; edit: boolean }) {
   const lang = c.lang;
@@ -52,8 +56,8 @@ export function SiteFooter({ c, edit }: { c: Copy; edit: boolean }) {
               <Bi lang={lang} id="Hubungi kami" en="Contact" />
             </h4>
             <Ed c={c} edit={edit} k="foot-p-2" as="p" />
-            {SOCIAL.map((name) => (
-              <a key={name} href="#" aria-disabled="true">
+            {SOCIAL.map(([name, url]) => (
+              <a key={name} href={url} target="_blank" rel="noopener noreferrer">
                 {name}
               </a>
             ))}
