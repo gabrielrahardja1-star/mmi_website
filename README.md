@@ -220,8 +220,9 @@ app was deployed and never added, and the gap went unnoticed for weeks. Send Cal
 > Please add **mmi_website** to /opt/postgres/SERVER.md.
 > App: MMI website + editor. Domains: mergecoal.com (and www), cms.mmiinternal.online.
 > Container: mmi_website_app (internal port 3140, one container serves both domains).
-> Database: mmi_website (role mmi_website_user) on mmi-postgres. Photos: /opt/mmi_website/uploads
-> (outside the database, needs to be in the backups). Folder: /opt/mmi_website.
+> Database: mmi_website (role mmi_website_user) on mmi-postgres (already covered by backup-all.sh).
+> Photos: /opt/mmi_website/uploads (NOT in the database; please add this folder to the nightly backup).
+> Folder: /opt/mmi_website.
 > nginx: /etc/nginx/conf.d/mmi_website-site.conf and mmi_website-cms.conf.
 
 ## 6. Everyday tasks
@@ -270,25 +271,31 @@ It only removes photos older than 24 hours that no news item, gallery entry or p
 
 ## 7. Backups
 
-The database (`mmi_website` on the shared Postgres) may already be covered by the server's own backups.
-**Ask Calvin to confirm.** The uploaded photos are *not* in the database, so they need their own backup.
+**The database is covered by the server's nightly backup.** IT's backup job dumps *every database* in the
+shared Postgres (including `mmi_website`, automatically) and copies the result off the server.
 
-`deploy/backup.sh` backs up both: a compressed database dump and a compressed copy of `uploads/`, into
-`/opt/mmi_website/backups`, keeping the newest 14 of each. Run it by hand to test:
+**The uploaded photos are not.** They are files in `/opt/mmi_website/uploads`, not rows in the database, and
+the nightly job only knows about the apps it was told about. **Ask IT to add `/opt/mmi_website/uploads`
+to the nightly backup** (the same way another app's uploaded images are already handled). Until that is done,
+the photos exist only on this server.
+
+`deploy/backup.sh` is an extra, self-contained backup of both the database and the photos into
+`/opt/mmi_website/backups` (keeping the newest 14 of each). It is useful as a stop-gap for the photos
+and before risky changes. Test it by hand:
 
 ```bash
 deploy/backup.sh
 ls -lh backups
 ```
 
-Then schedule it (`crontab -e`):
+Optionally schedule it (`crontab -e`):
 
 ```
 17 2 * * *  /opt/mmi_website/deploy/backup.sh >> /opt/mmi_website/backups/backup.log 2>&1
 ```
 
-Copy `backups/` somewhere off this server as well (Calvin's backup scope, or another machine), because a
-backup on the same disk does not survive that disk failing.
+A backup on the same disk does not survive that disk failing, so the off-server copy made by IT's job
+is the one that matters.
 
 ### Restoring
 
@@ -369,6 +376,8 @@ password block (`auth_basic`). Uncomment it, remove it again at launch.
   data. The site runs in its own container, on its own network, with its own database role that can only
   reach its own database, and nothing public listens except nginx. That limits the risk but does not
   remove it: a serious flaw in the public site or the server itself could in principle reach internal data.
+  In particular, every container on the shared database network can reach the others at the network level
+  (the database role limits only protect Postgres, not the other services on that network).
   Keep the server and the container image updated, and revisit hosting it separately if you ever can.
 - **Updating dependencies.** After upgrading Next.js, run `deploy/verify.sh` (see section 11, first item).
 

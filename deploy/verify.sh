@@ -28,8 +28,15 @@ expect "unknown page gives the site's 404"          404 "$PUB" /no-such-page
 expect "editor is NOT reachable from the public host"     404 "$PUB" /cms
 expect "editor API is NOT reachable from the public host" 404 "$PUB" /api/content/news
 expect "auth API is NOT reachable from the public host"   404 "$PUB" /api/auth/get-session
-expect "an unknown host is refused"                  404 "evil.example.com" /
-expect "the server's raw IP is refused"              404 "76.13.19.246" /
+# These two only mean something against the container itself. Through nginx, an unknown Host header is
+# answered by nginx's default vhost (another app), which is outside this app's control.
+case "$BASE" in
+  http://127.0.0.1*|http://localhost*)
+    expect "an unknown host is refused"                  404 "evil.example.com" /
+    expect "the server's raw IP is refused"              404 "76.13.19.246" /
+    ;;
+  *) echo "skip  unknown-host checks (they only apply when checking the container directly)" ;;
+esac
 expect "editor login page"                           200 "$CMS" /login
 expect "editor is login-protected (redirects)"       307 "$CMS" /
 expect "the public site is NOT served on the editor host" 404 "$CMS" /tentang
