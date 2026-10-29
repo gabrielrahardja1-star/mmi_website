@@ -10,6 +10,15 @@ first deployment. If something is broken, go to section 11.
 > `CLAUDE.md` is the original build brief (what the site and editor must do, the design rules and the
 > content policy). `prototype/` is the clickable prototype the production site was built from.
 
+### Current status (29 October 2026)
+
+- **Deployed and running** on the VPS: <https://mergecoal.com> (with a Let's Encrypt certificate) and the
+  editor at <https://cms.mmiinternal.online>. Two admin accounts exist.
+- **Not launched yet:** `SITE_INDEXABLE=false`, so search engines are told to stay away, and the content is
+  still the starter content (sample news, placeholder jobs, grey photo placeholders). See section 9.
+- **DNS move:** `mergecoal.com` was moved from Hostinger's DNS to Cloudflare on 29 October 2026. Some local
+  providers kept showing Hostinger's parking page for up to about 48 hours afterwards (see section 11).
+
 ---
 
 ## 1. What this is
@@ -54,8 +63,10 @@ uploaded photos (`/opt/mmi_website/uploads`).
 | App folder on the server | `/opt/mmi_website` |
 | Container | `mmi_website_app` (listens on `127.0.0.1:3140` only; nginx is the way in) |
 | Database | `mmi_website` on the shared Postgres, role `mmi_website_user` |
-| Code | GitHub repository `mmi_website` (see the handover note in section 10) |
+| Code | <https://github.com/gabrielrahardja1-star/mmi_website> (public; see section 10) |
 | Domain | `mergecoal.com`, registered at Hostinger, **expires 2028-10-28** (see section 10) |
+| DNS | Both `mergecoal.com` and `mmiinternal.online` are managed in Cloudflare (same account). Hostinger only holds the registration. |
+| Certificates | `mergecoal.com`: Let's Encrypt via certbot, renews itself. `cms.mmiinternal.online`: the existing Cloudflare origin certificate shared by all `*.mmiinternal.online` apps. |
 | Who runs the server | Calvin (IT) owns the shared nginx file and the VPS runbook |
 
 ## 3. How the code is organised
@@ -107,14 +118,27 @@ The VPS has 8 GB of RAM and no swap, and other apps run on it. This container is
 
 ### 5.1 DNS (two records at two places)
 
-1. **`mergecoal.com`**: at the domain's DNS (Hostinger, unless it was moved), add an `A` record to
-   `76.13.19.246` for `@` **and** for `www`. If you put the domain behind Cloudflare, create the records
-   *DNS only* (grey cloud) until the certificate in 5.8 is issued.
-2. **`cms.mmiinternal.online`**: in Cloudflare (zone `mmiinternal.online`), add an `A` record named `cms`
-   to `76.13.19.246`, **proxied (orange cloud)**, like the other `*.mmiinternal.online` records. It reuses
+Both domains are managed in **Cloudflare**.
+
+1. **`mergecoal.com`** (Cloudflare zone `mergecoal.com`): two `A` records, `@` and `www`, both to
+   `76.13.19.246`, both **DNS only** (grey cloud). Keep them grey until the certificate in 5.8 exists.
+   When the domain was first added to Cloudflare, Cloudflare copied Hostinger's old records (pointing
+   at Hostinger's parking page, `2.57.91.91`) and set them to proxied. Those had to be corrected by hand.
+2. **`cms.mmiinternal.online`** (Cloudflare zone `mmiinternal.online`): an `A` record named `cms` to
+   `76.13.19.246`, **proxied (orange cloud)**, like the other `*.mmiinternal.online` records. It reuses
    the existing wildcard origin certificate.
 
-Wait until `dig mergecoal.com` and `dig cms.mmiinternal.online` answer.
+**Check DNS the reliable way.** Some networks (the office one, for example) intercept or cache DNS, so
+`dig` can show old answers. Ask Google's resolver over HTTPS instead, or use <https://dnschecker.org>:
+
+```bash
+curl -s 'https://dns.google/resolve?name=mergecoal.com&type=A'           # expect 76.13.19.246
+curl -s 'https://dns.google/resolve?name=cms.mmiinternal.online&type=A'  # expect Cloudflare addresses
+```
+
+**Changing a domain's nameservers is slow; changing a record is not.** After moving `mergecoal.com` to
+Cloudflare's nameservers, some providers kept the old answer for up to about 48 hours. From now on, record
+changes inside Cloudflare take minutes.
 
 ### 5.2 Database
 
@@ -132,12 +156,13 @@ connection URL.
 
 ```bash
 mkdir -p /opt/mmi_website && cd /opt/mmi_website
-git clone <repo url> .
+git clone https://github.com/gabrielrahardja1-star/mmi_website.git .
 ```
 
-The repository is private, so the server needs a read-only *deploy key*: run `ssh-keygen -t ed25519` on
-the server, add the public key in GitHub under the repository's Settings, Deploy keys (leave "write"
-off), and clone with the `git@github.com:...` address.
+The repository is public, so no key is needed. If it is ever made private, `git pull` on the server stops
+working until the server has a read-only *deploy key*: run `ssh-keygen -t ed25519` on the server, add the
+public key in GitHub under the repository's Settings, Deploy keys (leave "write" off), and switch the
+remote to the `git@github.com:...` address (`git remote set-url origin ...`).
 
 ### 5.4 Configuration
 
@@ -146,6 +171,10 @@ cp deploy/env.production.example .env
 chmod 600 .env
 nano .env        # fill in DATABASE_URL (password from 5.2) and AUTH_SECRET (openssl rand -base64 32)
 ```
+
+Tip: generate the secrets into shell variables and insert them with `sed`, so they never appear on screen:
+`PGPW=$(openssl rand -hex 24); AUTHSECRET=$(openssl rand -base64 32)`, run `add-app.sh` with `"$PGPW"`, then
+`sed -i "s|:CHANGE_ME@|:${PGPW}@|; s|^AUTH_SECRET=.*|AUTH_SECRET=${AUTHSECRET}|" .env`.
 
 Leave `SITE_INDEXABLE=false`. Check the port is free: `ss -ltnp | grep 3140`. If something uses it,
 pick another and change `APP_PORT` in `.env` **and** both nginx files (5.7).
@@ -180,8 +209,10 @@ cp deploy/nginx/mmi_website-site.conf /etc/nginx/conf.d/
 cp deploy/nginx/mmi_website-cms.conf  /etc/nginx/conf.d/
 ```
 
-Open `mmi_website-cms.conf` and follow the `REPLACE` note: copy the `ssl_certificate` lines from one of
-the vhosts in `/etc/nginx/conf.d/mmiinternal.conf` so the editor uses the same certificate. Then:
+Open `mmi_website-cms.conf` and follow the `REPLACE` note: use the same `ssl_certificate` and
+`ssl_certificate_key` lines as the vhosts in `/etc/nginx/conf.d/mmiinternal.conf` (the files in
+`/etc/nginx/ssl/`), so the editor uses the same certificate. Then test before reloading; a reload is
+graceful and does not interrupt the other apps:
 
 ```bash
 nginx -t && systemctl reload nginx
@@ -192,14 +223,17 @@ nginx -t && systemctl reload nginx
 Only once `mergecoal.com` and `www.mergecoal.com` both resolve to the VPS:
 
 ```bash
-certbot --nginx -d mergecoal.com -d www.mergecoal.com
+certbot --nginx -d mergecoal.com -d www.mergecoal.com --redirect
 nginx -t && systemctl reload nginx
+certbot renew --cert-name mergecoal.com --dry-run      # rehearses the automatic renewal
 ```
 
 certbot **rewrites** `/etc/nginx/conf.d/mmi_website-site.conf` (adds HTTPS and the redirect). After this,
 never copy the template over it again: edit the live file. Renewal is automatic (the same certbot serves
-the other domains on this server). Now you can switch the domain to proxied (orange cloud) in Cloudflare
-if you want to.
+the other domains on this server). The first certificate was issued on 29 October 2026.
+
+Optional, later: you can switch the `mergecoal.com` records to proxied (orange cloud). If you do, set
+Cloudflare's **SSL/TLS mode for that zone to Full (strict)** first. "Flexible" causes an endless redirect.
 
 ### 5.9 Verify
 
@@ -211,6 +245,9 @@ curl -I https://cms.mmiinternal.online
 
 `verify.sh` runs about twenty checks: every page answers, the editor and its API are NOT reachable from
 `mergecoal.com`, unknown addresses are refused, and so on. All lines should say `ok`.
+Run it without `BASE` (it then talks to the container directly). With `BASE=https://mergecoal.com` it
+skips the unknown-host checks, because through nginx an unknown hostname is answered by nginx's default
+vhost, which belongs to another app and is outside this app's control.
 
 ### 5.10 Tell Calvin (not optional)
 
@@ -235,8 +272,24 @@ All of these are run on the VPS in `/opt/mmi_website`.
 docker compose run --rm tools npm run user:create -- --email ani@mmi.co.id --name "Ani" --role editor
 ```
 
-Roles: `admin`, `editor`, `contributor`. Give them the editor address and the password. Ask them to open
-**Akun** (the person icon, top right) and turn on two-factor login and change the password.
+Roles: `admin`, `editor`, `contributor`. Give them the editor address and the password privately. Ask them
+to open **Akun** (the person icon, top right), change the password and turn on two-factor login.
+**Keluar** (top right) logs out.
+
+**See who has an account:**
+
+```bash
+docker exec mmi-postgres psql -U postgres -d mmi_website -c 'select email, name, role, two_factor_enabled, created_at from "user" order by created_at'
+```
+
+**Remove an account** (for example when someone leaves). Their login and sessions are deleted; the content
+they wrote stays, it just no longer records them as the last editor:
+
+```bash
+docker exec mmi-postgres psql -U postgres -d mmi_website -c "delete from \"user\" where email = 'ani@mmi.co.id'"
+```
+
+Always keep at least one Admin account that belongs to someone who is staying.
 
 **Someone forgot their password:**
 
@@ -251,7 +304,14 @@ deploy/deploy.sh
 ```
 
 It pulls, rebuilds, applies database changes, restarts and runs the checks. If the checks fail, read
-section 11 and `docker compose logs --tail 100 app`.
+section 11 and `docker compose logs --tail 100 app`. It is safe to run again if it was interrupted.
+
+If your SSH connection tends to drop, start it so that a disconnect cannot stop it:
+
+```bash
+nohup deploy/deploy.sh > /tmp/mmi_deploy.log 2>&1 &
+tail -f /tmp/mmi_deploy.log        # Ctrl+C stops watching, not the deploy
+```
 
 **Look at the logs / restart:**
 
@@ -353,6 +413,8 @@ Work through this list. Until `SITE_INDEXABLE` is `true`, search engines are tol
 - [ ] Turn on two-factor for the Admin and Editor accounts.
 - [ ] Confirm backups work (section 7) and a restore has been tried once.
 - [ ] Tell Calvin (5.10) if not done.
+- [ ] Turn on **auto-renewal** for the domains in Hostinger (section 10).
+- [ ] Check the site opens on a phone on mobile data (not only on the office network) before announcing it.
 - [ ] **Launch:** set `SITE_INDEXABLE=true` in `.env`, run `docker compose up -d`, then run
       `deploy/verify.sh`: its last line should say search engines are ALLOWED. Submit
       `https://mergecoal.com/sitemap.xml` in Google Search Console.
@@ -363,15 +425,23 @@ password block (`auth_basic`). Uncomment it, remove it again at launch.
 
 ## 10. Handover notes (read this if the original developer has left)
 
-- **Domain renewal.** `mergecoal.com` expires on **2028-10-28** and auto-renew looked **off** in the
-  Hostinger panel. If it lapses the website disappears. Turn auto-renew on, or put a reminder in a shared
-  calendar for early September 2028.
+- **Domain renewal.** On 29 October 2026 auto-renewal was **off** for all three MMI domains in Hostinger:
+
+  | Domain | Expires | What stops working if it lapses |
+  |---|---|---|
+  | `mmiinternal.online` | **2027-10-01** | All internal apps (hauling, HR, procurement, MiniMart, tracker) and this editor |
+  | `mmiminimarketbackend.online` | 2027-05-15 | The MiniMart backend |
+  | `mergecoal.com` | 2028-10-28 | The public website |
+
+  Turn auto-renewal on (with a company payment method), or put the dates in a shared calendar.
 - **Whose accounts?** Make sure the Hostinger account (domain and VPS), the Cloudflare account and the GitHub
   repository belong to the company, not to one person's login. The repository is currently under a
-  personal GitHub account: transfer it to a company GitHub organisation (repository Settings, Transfer)
-  and update the deploy key and the `git remote` on the server.
-- **Who can add editors?** Anyone with root SSH to the VPS, using section 6. Consider creating a second Admin
-  account so one person leaving never locks everyone out.
+  personal GitHub account and is **public**: transfer it to a company GitHub organisation (repository
+  Settings, Transfer) and update the `git remote` on the server (`git remote set-url origin <new url>`).
+  Being public, it shows the server's address and setup; it contains no passwords or keys.
+- **Who can add editors?** Anyone with root SSH to the VPS, using section 6. There is no "manage users"
+  screen in the editor yet. Before the original developer leaves (31 December 2026), remove their
+  personal admin account (section 6) and make sure another Admin belongs to someone who stays.
 - **The shared VPS.** This was deliberately placed on the same server as MMI's internal apps and their
   data. The site runs in its own container, on its own network, with its own database role that can only
   reach its own database, and nothing public listens except nginx. That limits the risk but does not
@@ -393,6 +463,9 @@ password block (`auth_basic`). Uncomment it, remove it again at launch.
 | "Terlalu banyak percobaan" when logging in | The login limit is 5 tries per 5 minutes. Wait five minutes. |
 | The site is not in Google after launch | `SITE_INDEXABLE` must be `true` (section 9); `verify.sh` shows which state it is in. Indexing takes days. |
 | The editor canvas is blank | Open the browser console. Usually the app was updated while the editor was open: reload the page. |
+| Visitors see Hostinger's "Registered at Hostinger" page | Their DNS provider still remembers the time before the move to Cloudflare. It clears by itself (at most about 48 hours after a nameserver change). Check worldwide at <https://dnschecker.org/#A/mergecoal.com>. Editing records in Hostinger does nothing while the nameservers are Cloudflare's, and switching the nameservers back would restart the wait. |
+| Browser says `DNS_PROBE_FINISHED_NXDOMAIN` | The name does not exist in DNS (yet). Check the record in Cloudflare. A newly added record can still look missing for up to 30 minutes where the "does not exist" answer was cached; in Chrome, clear `chrome://net-internals/#dns`, or turn on Settings, Security, "Use secure DNS". |
+| `dig` shows old answers or times out on the office network | That network interferes with DNS. Use `curl -s 'https://dns.google/resolve?name=<name>&type=A'` instead (section 5.1). |
 | `docker compose` cannot find network `postgres_net` | The shared Postgres stack is not running. Start it from `/opt/postgres` (ask Calvin). |
 | Database errors after an update | Run `docker compose run --rm tools npm run db:migrate`. |
 

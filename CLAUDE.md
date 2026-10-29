@@ -167,3 +167,52 @@ Wix-style visual editor. Layout: top bar, left tool rail, the **real website ren
 - [ ] The editor is on its own domain, behind login, with roles. The public site has no edit surface.
 - [ ] Seed data loaded, uploads resized, backups scheduled.
 - [ ] A README explains how to run, deploy, add an editor user, and restore a backup, written for someone who isn't the original developer.
+
+---
+
+## 11. Build status and decisions (added 29 October 2026)
+
+Sections 1 to 10 above are the original brief and are kept as written. This section records what was built
+and where it differs. **`README.md` is the operating manual** (deploy, accounts, backups, troubleshooting).
+
+### Against "Done means"
+
+- Site matches the prototype: **yes.** Every page measured against `standalone.html` at 1440px and 390px in
+  ID and EN, within 2px.
+- Editor: **yes** (inline text, photo slots, item inspector, flyouts, phone/desktop, preview, draft → publish).
+  Covered by `scripts/e2e-editor.mjs` (54 checks in Chrome, local database only).
+- Published news appears without a deploy, and draft page text stays hidden until Terbitkan: **yes**, tested.
+- Editor on its own domain, behind login, with roles; no edit surface on the public site: **yes**
+  (`deploy/verify.sh` checks the split on every deploy).
+- Seed data loaded and uploads resized: **yes.** Backups: the database is in IT's nightly backup; **the photo
+  folder is not yet** (IT has been asked to add `/opt/mmi_website/uploads`).
+- README: **yes.**
+
+### Decisions that differ from the brief (deliberate)
+
+- **One container, two hostnames**, not two apps: `src/proxy.ts` serves the site or the editor by Host
+  header, following the VPS handover's pattern. The editor and its API return 404 on the public domain.
+- **Hosting:** on the shared VPS with MMI's internal apps (the owner's decision, against section 2's advice),
+  with isolation limits listed in README section 10. Database: its own role and database on the shared
+  Postgres. Photos: a local folder, not S3.
+- **English has its own URLs** (`/en/...`) so `hreflang` and per-language titles work; the toggle is a link
+  and is remembered in a cookie.
+- **Search engines are off until launch** (`SITE_INDEXABLE`), with noindex, a closed robots.txt and an empty
+  sitemap.
+- **Stricter than the prototype:** job links must be on JobStreet's own domains (section 8 policy), and
+  contributors can never publish or change live items (enforced on the server).
+- **Editor canvas is an iframe**, so the phone view uses the site's real media queries.
+
+### Gotchas for whoever changes the code next
+
+- Next.js 16: middleware is `src/proxy.ts`; read `node_modules/next/dist/docs/` (see `AGENTS.md`).
+- The host-split rewrites need the server started with `HOSTNAME=0.0.0.0` (set in the Dockerfile and
+  compose file). With another value every page 404s in production while dev looks fine.
+- Next buffers request bodies through the proxy and silently cuts them at 10 MB, so `/api/media` is
+  excluded from the proxy matcher and checks host and login itself.
+
+### Still open (from section 9, unchanged)
+
+Vision, mission and values sign-off; company history paragraph; real contact and HR emails and social links;
+real photos; the ShalokalIndonesia article date; the 4 placeholder jobs; logo SVG and white version. Plus: a
+"manage users" screen in the editor does not exist yet (accounts are managed on the server, README section 6).
