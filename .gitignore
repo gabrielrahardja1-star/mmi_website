@@ -1,1 +1,12 @@
 mmi-website-handover.zip
+
+node_modules/
+.next/
+out/
+.env
+.env.*
+!.env.example
+uploads/
+*.tsbuildinfo
+next-env.d.ts
+.DS_Store
