@@ -43,19 +43,25 @@ async function mediaExists(id: string): Promise<boolean> {
 
 // ---------- content items ----------
 
-export async function listContent(type: ContentType) {
-  const db = getDb();
+const listNews = () => getDb().select().from(news).orderBy(desc(news.date), desc(news.updatedAt));
+const listArticles = () =>
+  getDb().select().from(articles).orderBy(sql`${articles.date} desc nulls last`, desc(articles.updatedAt));
+const listGallery = () => getDb().select().from(gallery).orderBy(desc(gallery.date), desc(gallery.updatedAt));
+const listVideos = () => getDb().select().from(videos).orderBy(desc(videos.date), desc(videos.updatedAt));
+const listJobs = () => getDb().select().from(jobs).orderBy(asc(jobs.sortOrder));
+
+export function listContent(type: ContentType) {
   switch (type) {
     case "news":
-      return db.select().from(news).orderBy(desc(news.date), desc(news.updatedAt));
+      return listNews();
     case "articles":
-      return db.select().from(articles).orderBy(sql`${articles.date} desc nulls last`, desc(articles.updatedAt));
+      return listArticles();
     case "gallery":
-      return db.select().from(gallery).orderBy(desc(gallery.date), desc(gallery.updatedAt));
+      return listGallery();
     case "videos":
-      return db.select().from(videos).orderBy(desc(videos.date), desc(videos.updatedAt));
+      return listVideos();
     case "jobs":
-      return db.select().from(jobs).orderBy(asc(jobs.sortOrder));
+      return listJobs();
   }
 }
 
@@ -201,4 +207,21 @@ export async function publishDraft(user: CurrentUser): Promise<Result<unknown>> 
     .returning();
   for (const old of Object.values(live.img)) if (old && !Object.values(draft.img).includes(old)) await releaseMedia(old);
   return { ok: true, value: { live: row, unpublished: false } };
+}
+
+// Everything the editor needs on first load: every row (drafts included) and both copy documents.
+export async function getEditorSnapshot() {
+  const [n, a, g, v, j, copy] = await Promise.all([
+    listNews(),
+    listArticles(),
+    listGallery(),
+    listVideos(),
+    listJobs(),
+    getPageCopy(),
+  ]);
+  return {
+    content: { news: n, articles: a, gallery: g, videos: v, jobs: j },
+    draft: { text: copy.draft.text, img: copy.draft.img } as CopyDoc,
+    live: { text: copy.live.text, img: copy.live.img } as CopyDoc,
+  };
 }

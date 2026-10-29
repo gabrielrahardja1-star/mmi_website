@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Bi } from "./primitives";
 import { LANG_COOKIE, PAGES, pagePath, type PageKey } from "@/lib/routes";
 import type { Lang, ViewLang } from "@/lib/format";
@@ -19,23 +19,15 @@ function rememberLang(l: Lang) {
   document.cookie = `${LANG_COOKIE}=${l}; path=/; max-age=31536000; samesite=lax`;
 }
 
-export function SiteHeader({ current, lang }: { current: PageKey; lang: ViewLang }) {
+export function SiteHeader({ current, lang, activeLang }: { current: PageKey; lang: ViewLang; activeLang?: Lang }) {
   const [open, setOpen] = useState(false);
-  // Only used by the editor canvas (lang="both"), which switches language in place.
-  const [canvasLang, setCanvasLang] = useState<Lang>("id");
-  useEffect(() => {
-    if (lang === "both") setCanvasLang(document.body.dataset.lang === "en" ? "en" : "id");
-  }, [lang]);
-
-  const active: Lang = lang === "both" ? canvasLang : lang;
-  const chooseInCanvas = (l: Lang) => {
-    document.body.dataset.lang = l;
-    setCanvasLang(l);
-  };
+  // In the editor canvas (lang="both") the editor shell owns the language; clicks on the toggle are
+  // caught by the canvas and forwarded to it, so the buttons here only display the state.
+  const active: Lang = lang === "both" ? (activeLang ?? "id") : lang;
 
   const langButton = (l: Lang, label: string) =>
     lang === "both" ? (
-      <button aria-pressed={active === l} onClick={() => chooseInCanvas(l)}>
+      <button aria-pressed={active === l} data-lang-choice={l}>
         {label}
       </button>
     ) : (
@@ -53,7 +45,7 @@ export function SiteHeader({ current, lang }: { current: PageKey; lang: ViewLang
     <header className="site">
       <div className="wrap">
         <Link className="brand" href={pagePath("home", lang)} aria-label="Merge Mining Industri">
-          <img src="/static/logo-mark.png" alt="" width={120} height={82} />
+          <img src="/static/logo-mark.png" alt="" />
           <span>Merge Mining Industri</span>
         </Link>
         <button

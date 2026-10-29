@@ -3,7 +3,7 @@ import { Bi, colAttrs } from "./primitives";
 import { CATS, fmtDate, type CatKey, type ViewLang } from "@/lib/format";
 import { localizePath } from "@/lib/routes";
 import { mediaUrl } from "@/lib/media";
-import type { ArticleRow, GalleryRow, JobRow, NewsRow, VideoRow } from "@/lib/content";
+import type { ArticleItem, GalleryItem, JobItem, NewsItem, VideoItem } from "@/lib/site-types";
 
 export function StoryCard({
   n,
@@ -11,7 +11,7 @@ export function StoryCard({
   lang,
   excerpt = true,
 }: {
-  n: NewsRow;
+  n: NewsItem;
   edit: boolean;
   lang: ViewLang;
   excerpt?: boolean;
@@ -53,7 +53,7 @@ export function StoryCard({
 }
 
 // External press coverage: headline, outlet, date and our own one-line summary. Opens the publisher.
-export function PressItem({ a, edit, lang }: { a: ArticleRow; edit: boolean; lang: ViewLang }) {
+export function PressItem({ a, edit, lang }: { a: ArticleItem; edit: boolean; lang: ViewLang }) {
   return (
     <a className="pitem" href={a.url} target="_blank" rel="noopener" {...colAttrs(edit, "articles", a.id)}>
       <div className="src">
@@ -79,7 +79,7 @@ export function PressItem({ a, edit, lang }: { a: ArticleRow; edit: boolean; lan
   );
 }
 
-export function JobRowItem({ j, edit, lang }: { j: JobRow; edit: boolean; lang: ViewLang }) {
+export function JobRowItem({ j, edit, lang }: { j: JobItem; edit: boolean; lang: ViewLang }) {
   return (
     <div className="job" {...colAttrs(edit, "jobs", j.id)}>
       <h3>
@@ -96,7 +96,7 @@ export function JobRowItem({ j, edit, lang }: { j: JobRow; edit: boolean; lang: 
   );
 }
 
-export function VideoCard({ v, big, edit, lang }: { v: VideoRow; big: boolean; edit: boolean; lang: ViewLang }) {
+export function VideoCard({ v, big, edit, lang }: { v: VideoItem; big: boolean; edit: boolean; lang: ViewLang }) {
   return (
     <a className="vid" href={v.url} target="_blank" rel="noopener" {...colAttrs(edit, "videos", v.id)}>
       <div className="ph" style={big ? undefined : { aspectRatio: "16/9" }}>
@@ -115,7 +115,7 @@ export function VideoCard({ v, big, edit, lang }: { v: VideoRow; big: boolean; e
 
 // The caption doubles as alt text. In the editor (lang "both") alt uses the Indonesian caption, since
 // an attribute can't hold the id/en span pair.
-export function GalleryPhoto({ g, wide, edit, lang }: { g: GalleryRow; wide: boolean; edit: boolean; lang: ViewLang }) {
+export function GalleryPhoto({ g, wide, edit, lang }: { g: GalleryItem; wide: boolean; edit: boolean; lang: ViewLang }) {
   return (
     <figure className={`photo${wide ? " wide" : ""}`} style={{ margin: 0 }} {...colAttrs(edit, "gallery", g.id)}>
       <img src={mediaUrl(g.imageId, 800)} alt={lang === "en" ? g.captionEn || g.captionId : g.captionId} loading="lazy" />

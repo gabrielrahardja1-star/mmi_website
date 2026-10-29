@@ -1,4 +1,5 @@
 /* Shared by the public site and the editor: reset, body, headings, the .wrap container. */
+body{margin:0}
 img{max-width:100%}
 [hidden]{display:none!important}
 

@@ -10,7 +10,7 @@ export default async function LoginPage() {
     <main className="c-gate">
       <div className="box">
         <div className="brandrow">
-          <img src="/static/logo-mark.png" alt="" width={120} height={82} style={{ height: 30, width: "auto" }} />
+          <img src="/static/logo-mark.png" alt="" style={{ height: 30, width: "auto" }} />
           <b>MMI Editor</b>
         </div>
         <LoginForm />

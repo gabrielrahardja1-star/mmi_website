@@ -1,24 +1,23 @@
-import { ROLE_LABEL } from "@/lib/roles";
+import { EditorApp } from "@/components/editor/editor-app";
+import type { Items } from "@/components/editor/use-editor";
+import { getEditorSnapshot } from "@/lib/content-service";
+import { getEnv } from "@/lib/env";
 import { requireUser } from "@/lib/session";
 
 export const metadata = { title: "MMI Editor" };
 
-// Placeholder until the visual editor is built: confirms the login works and who is signed in.
-export default async function EditorHome() {
+export default async function EditorPage() {
   const user = await requireUser();
+  const snap = await getEditorSnapshot();
+  // Rows go to the browser as plain data. Dates become strings, which the editor never reads.
+  const items = JSON.parse(JSON.stringify(snap.content)) as Items;
   return (
-    <main className="c-gate">
-      <div className="box">
-        <h1>Halo, {user.name}</h1>
-        <p className="muted">
-          Masuk sebagai {user.email} ({ROLE_LABEL[user.role]}). Editor visual sedang dibangun.
-        </p>
-        <div className="row">
-          <a className="c-btn ghost sm" href="/akun">
-            Akun dan keamanan
-          </a>
-        </div>
-      </div>
-    </main>
+    <EditorApp
+      user={{ name: user.name, email: user.email, role: user.role }}
+      items={items}
+      draft={snap.draft}
+      live={snap.live}
+      publicOrigin={getEnv().PUBLIC_ORIGIN}
+    />
   );
 }

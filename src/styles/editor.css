@@ -53,19 +53,10 @@
 .e-search{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:var(--r);padding:0 10px;background:var(--white)}
 .e-search input{border:0;outline:0;font:inherit;font-size:.9rem;padding:8px 0;width:100%;background:transparent;color:var(--ink)}
 
-.e-canvas{overflow:auto;position:relative;padding:20px;min-width:0}
-.e-frame{background:var(--white);margin:0 auto;box-shadow:0 1px 3px rgba(15,20,25,.08),0 8px 30px rgba(15,20,25,.08);position:relative;transition:width .2s;width:100%;max-width:1280px}
+.e-canvas{position:relative;padding:20px;min-width:0;min-height:0;display:flex;overflow:hidden}
+.e-frame{background:var(--white);margin:0 auto;box-shadow:0 1px 3px rgba(15,20,25,.08),0 8px 30px rgba(15,20,25,.08);position:relative;transition:width .2s;width:100%;max-width:1280px;height:100%;min-height:0}
+.e-frame iframe{display:block;width:100%;height:100%;border:0;background:#fff}
 .e-frame.cv-mobile{width:390px;max-width:100%}
-.e-frame #site header.site{top:0}
-.e-frame .proto{display:none}
-.e-tip{position:absolute;z-index:25;pointer-events:none;background:var(--sel);color:#fff;font-size:.72rem;font-weight:600;padding:2px 8px;border-radius:3px 3px 0 0;white-space:nowrap;transform:translateY(-100%)}
-.e-tip[hidden]{display:none}
-.cv-on [data-ed],.cv-on [data-img],.cv-on [data-col]{cursor:pointer}
-.cv-on [data-ed]:hover,.cv-on [data-img]:hover,.cv-on [data-col]:hover{outline:2px dashed var(--sel);outline-offset:3px}
-.cv-on .cv-sel,.cv-on .cv-sel:hover{outline:2px solid var(--sel)!important;outline-offset:3px}
-.cv-on [contenteditable]{outline:2px solid var(--sel)!important;outline-offset:3px;cursor:text;background:rgba(47,111,235,.06)}
-.cv-on .cv-sel .id[contenteditable]:focus,.cv-on .cv-sel .en[contenteditable]:focus{outline:0}
-.cv-on .story,.cv-on .pitem,.cv-on .vid{pointer-events:auto}
 
 .e-insp{background:var(--bar);border-left:1px solid var(--line);display:flex;flex-direction:column;min-height:0;padding-right:env(safe-area-inset-right,0px)}
 .e-insp > header{padding:14px 16px;border-bottom:1px solid var(--line);display:grid;gap:4px}

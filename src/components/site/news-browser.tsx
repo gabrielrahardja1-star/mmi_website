@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Bi, Empty } from "./primitives";
 import { StoryCard } from "./items";
-import type { NewsRow } from "@/lib/content";
+import type { NewsItem } from "@/lib/site-types";
 import type { ViewLang } from "@/lib/format";
 
 const TABS: { f: string; id: string; en: string }[] = [
@@ -15,7 +15,7 @@ const TABS: { f: string; id: string; en: string }[] = [
 ];
 
 // Category filter on the Media page. `items` arrives already sorted newest first.
-export function NewsBrowser({ items, edit, lang }: { items: NewsRow[]; edit: boolean; lang: ViewLang }) {
+export function NewsBrowser({ items, edit, lang }: { items: NewsItem[]; edit: boolean; lang: ViewLang }) {
   const [filter, setFilter] = useState("all");
   const list = items.filter((n) => filter === "all" || n.cat === filter);
   return (

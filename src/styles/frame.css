@@ -1,0 +1,12 @@
+/* The editor canvas: the real site inside an iframe, plus the editing outlines. Loaded after site.css,
+   only in the iframe document (never on the public site). Ported from the prototype's .cv-* rules. */
+:root{--sel:#2F6FEB}
+body.cv-on [data-ed],body.cv-on [data-img],body.cv-on [data-col]{cursor:pointer}
+body.cv-on [data-ed]:hover,body.cv-on [data-img]:hover,body.cv-on [data-col]:hover{outline:2px dashed var(--sel);outline-offset:3px}
+body.cv-on .cv-sel,body.cv-on .cv-sel:hover{outline:2px solid var(--sel)!important;outline-offset:3px}
+body.cv-on [contenteditable]{outline:2px solid var(--sel)!important;outline-offset:3px;cursor:text;background:rgba(47,111,235,.06)}
+body.cv-on .cv-sel .id[contenteditable]:focus,body.cv-on .cv-sel .en[contenteditable]:focus{outline:0}
+body.cv-on .story,body.cv-on .pitem,body.cv-on .vid{pointer-events:auto}
+.e-tip{position:absolute;z-index:25;pointer-events:none;background:var(--sel);color:#fff;font:600 .72rem var(--body);padding:2px 8px;border-radius:3px 3px 0 0;white-space:nowrap;transform:translateY(-100%)}
+.e-tip[hidden]{display:none}
+header.site{top:0}

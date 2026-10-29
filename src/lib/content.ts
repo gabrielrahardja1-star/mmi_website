@@ -1,24 +1,10 @@
 import { asc, desc, eq, sql } from "drizzle-orm";
 import { getDb } from "@/db";
 import { articles, gallery, jobs, news, pageCopy, videos } from "@/db/schema";
-import type { Lang, ViewLang } from "@/lib/format";
-import { makeCopy, type Copy, type CopyDoc } from "@/lib/page-copy";
+import type { Lang } from "@/lib/format";
+import { makeCopy, type CopyDoc } from "@/lib/page-copy";
+import type { SiteContent } from "@/lib/site-types";
 
-export type NewsRow = typeof news.$inferSelect;
-export type ArticleRow = typeof articles.$inferSelect;
-export type GalleryRow = typeof gallery.$inferSelect;
-export type VideoRow = typeof videos.$inferSelect;
-export type JobRow = typeof jobs.$inferSelect;
-
-export type SiteContent = {
-  lang: ViewLang;
-  news: NewsRow[];
-  articles: ArticleRow[];
-  gallery: GalleryRow[];
-  videos: VideoRow[];
-  jobs: JobRow[];
-  copy: Copy;
-};
 
 // What visitors see: only published / shown / open rows, and the live page copy.
 export async function getPublicContent(lang: Lang): Promise<SiteContent> {

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { GalleryPhoto, JobRowItem, PressItem, StoryCard, VideoCard } from "./items";
 import { NewsBrowser } from "./news-browser";
 import { Bi, Ed, Empty, PhotoSlot } from "./primitives";
-import type { SiteContent } from "@/lib/content";
+import type { SiteContent } from "@/lib/site-types";
 import { mediaUrl } from "@/lib/media";
 import { localizePath } from "@/lib/routes";
 import type { ViewLang } from "@/lib/format";
@@ -124,13 +124,13 @@ export function HomePage({ content, edit }: PageProps) {
         </div>
       </section>
 
-      {homeVideo && (
-        <section id="homeVideoSec">
-          <div className="wrap" id="homeVideo">
-            <VideoCard v={homeVideo} big edit={edit} lang={lang} />
-          </div>
-        </section>
-      )}
+      {/* Always present, hidden when no video is featured: the spacing rules between sections
+          (band-tint + section, section + section) depend on it being there, as in the prototype. */}
+      <section id="homeVideoSec" hidden={!homeVideo}>
+        <div className="wrap" id="homeVideo">
+          {homeVideo && <VideoCard v={homeVideo} big edit={edit} lang={lang} />}
+        </div>
+      </section>
 
       <section>
         <div className="wrap">

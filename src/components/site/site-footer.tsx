@@ -22,7 +22,7 @@ export function SiteFooter({ c, edit }: { c: Copy; edit: boolean }) {
         <div className="fgrid">
           <div>
             <span className="flogo">
-              <img src="/static/logo-mark.png" alt="" width={120} height={82} />
+              <img src="/static/logo-mark.png" alt="" />
               <span>Merge Mining Industri</span>
             </span>
             <Ed c={c} edit={edit} k="foot-p-1" as="p" />

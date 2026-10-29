@@ -13,7 +13,7 @@ export const dynamic = "force-dynamic";
 
 // Root layout of the editor shell: login, account and the visual editor. Served only on the CMS host.
 // The editor's canvas (the site inside an iframe) has its own root layout so site and editor CSS never mix.
-export const metadata = { title: "MMI Editor", robots: { index: false, follow: false } };
+export const metadata = { title: "MMI Editor", robots: { index: false, follow: false }, icons: { icon: "/static/logo-mark.png" } };
 
 export default function CmsShellLayout({ children }: { children: ReactNode }) {
   return (
