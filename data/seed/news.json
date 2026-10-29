@@ -1,0 +1,167 @@
+{
+  "n01": {
+    "cat": "env",
+    "date": "2026-10-17",
+    "tId": "Aksi Nyata MMI SIAGA Dukung Penanganan Karhutla",
+    "tEn": "MMI SIAGA Supports Forest and Land Fire Response",
+    "sId": "MMI memberikan dukungan logistik untuk tim siaga karhutla yang bertugas di lapangan.",
+    "sEn": "MMI provided logistics support to the forest and land fire response team in the field.",
+    "status": "pub",
+    "img": "",
+    "updatedAt": "2026-10-29T02:30:00.000Z"
+  },
+  "n02": {
+    "cat": "com",
+    "date": "2026-10-14",
+    "tId": "Belajar, Tumbuh, dan Sehat Bersama",
+    "tEn": "Learning, Growing and Staying Healthy Together",
+    "sId": "Program PPM bersama masyarakat Sungai Pinang: beasiswa siswa, 150 bibit buah unggul, dan dukungan kesehatan.",
+    "sEn": "A community program in Sungai Pinang with student scholarships, 150 quality fruit seedlings and health support.",
+    "status": "pub",
+    "img": "",
+    "updatedAt": "2026-10-29T02:30:00.000Z"
+  },
+  "n03": {
+    "cat": "com",
+    "date": "2026-10-08",
+    "tId": "Penyerahan Beasiswa untuk Generasi Penerus",
+    "tEn": "Scholarships for the Next Generation",
+    "sId": "Beasiswa untuk siswa SD, MI, MTs, dan MA dari Desa Rantau Bakula dan Desa Rantau Nangka.",
+    "sEn": "Scholarships for primary and Islamic school students from Rantau Bakula and Rantau Nangka villages.",
+    "status": "pub",
+    "img": "",
+    "updatedAt": "2026-10-29T02:30:00.000Z"
+  },
+  "n04": {
+    "cat": "env",
+    "date": "2026-10-01",
+    "tId": "Uji Rutin Lingkungan Bersama BSPJI",
+    "tEn": "Routine Environmental Testing With BSPJI",
+    "sId": "Pengujian berkala untuk memantau kondisi lingkungan di lapangan.",
+    "sEn": "Regular testing to monitor environmental conditions on site.",
+    "status": "pub",
+    "img": "",
+    "updatedAt": "2026-10-29T02:30:00.000Z"
+  },
+  "n05": {
+    "cat": "safe",
+    "date": "2026-09-02",
+    "tId": "Pelatihan dan Simulasi Penggunaan Hydrant",
+    "tEn": "Hydrant Training and Drill",
+    "sId": "Pengarahan dan praktik langsung penggunaan hydrant agar tim siap menghadapi kondisi darurat.",
+    "sEn": "A briefing and hands-on hydrant practice so the team is ready for emergencies.",
+    "status": "pub",
+    "img": "",
+    "updatedAt": "2026-10-29T02:30:00.000Z"
+  },
+  "n06": {
+    "cat": "safe",
+    "date": "2026-08-31",
+    "tId": "Pelatihan dan Simulasi Penggunaan APAR",
+    "tEn": "Fire Extinguisher Training and Drill",
+    "sId": "Dari pengarahan hingga praktik langsung penggunaan alat pemadam api ringan.",
+    "sEn": "From briefing to hands-on practice with portable fire extinguishers.",
+    "status": "pub",
+    "img": "",
+    "updatedAt": "2026-10-29T02:30:00.000Z"
+  },
+  "n07": {
+    "cat": "event",
+    "date": "2026-08-17",
+    "tId": "Upacara HUT ke-81 Kemerdekaan Republik Indonesia",
+    "tEn": "81st Indonesian Independence Day Ceremony",
+    "sId": "Karyawan MMI mengikuti upacara bendera di lokasi tambang.",
+    "sEn": "MMI employees held a flag ceremony at the mine site.",
+    "status": "pub",
+    "img": "",
+    "updatedAt": "2026-10-29T02:30:00.000Z"
+  },
+  "n08": {
+    "cat": "env",
+    "date": "2026-08-10",
+    "tId": "Kegiatan Rehabilitasi Daerah Aliran Sungai",
+    "tEn": "River Basin Rehabilitation Work",
+    "sId": "Geotagging lokasi rehabilitasi DAS untuk pendataan dan verifikasi lapangan.",
+    "sEn": "Geotagging rehabilitation sites for field records and verification.",
+    "status": "pub",
+    "img": "",
+    "updatedAt": "2026-10-29T02:30:00.000Z"
+  },
+  "n09": {
+    "cat": "event",
+    "date": "2026-08-03",
+    "tId": "Kunjungan dan Silaturahmi PT PLN Indonesia Power",
+    "tEn": "Visit From PT PLN Indonesia Power",
+    "sId": "MMI menerima kunjungan PT PLN Indonesia Power sebagai bagian dari komunikasi kedua perusahaan.",
+    "sEn": "MMI welcomed PT PLN Indonesia Power as part of ongoing ties between the two companies.",
+    "status": "pub",
+    "img": "",
+    "updatedAt": "2026-10-29T02:30:00.000Z"
+  },
+  "n10": {
+    "cat": "com",
+    "date": "2026-07-06",
+    "tId": "Program Rehabilitasi Madrasah di Rantau Bakula",
+    "tEn": "Madrasah Renovation in Rantau Bakula",
+    "sId": "Renovasi Madrasah Mura' Atusshibiyan agar siswa bisa belajar dengan lebih nyaman.",
+    "sEn": "Renovating Madrasah Mura' Atusshibiyan so students can learn in better classrooms.",
+    "status": "pub",
+    "img": "",
+    "updatedAt": "2026-10-29T02:30:00.000Z"
+  },
+  "n11": {
+    "cat": "com",
+    "date": "2026-06-30",
+    "tId": "Bersama Mendukung Pencegahan Stunting",
+    "tEn": "Working Together to Prevent Stunting",
+    "sId": "Edukasi gizi seimbang, pola asuh, dan pemantauan tumbuh kembang anak.",
+    "sEn": "Sessions on balanced nutrition, parenting and child growth checks.",
+    "status": "pub",
+    "img": "",
+    "updatedAt": "2026-10-29T02:30:00.000Z"
+  },
+  "n12": {
+    "cat": "com",
+    "date": "2026-06-25",
+    "tId": "Bersama Melestarikan Seni Budaya Lokal",
+    "tEn": "Preserving Local Arts and Culture",
+    "sId": "Penyerahan peralatan untuk kelompok seni budaya di Desa Sungai Pinang.",
+    "sEn": "Equipment handed to local arts groups in Sungai Pinang village.",
+    "status": "pub",
+    "img": "",
+    "updatedAt": "2026-10-29T02:30:00.000Z"
+  },
+  "n13": {
+    "cat": "env",
+    "date": "2026-06-15",
+    "tId": "Verifikasi Lapangan Bersama Instansi Lingkungan Hidup",
+    "tEn": "Field Verification With the Environmental Agency",
+    "sId": "Mendukung pengawasan instansi lingkungan hidup sebagai bagian dari kepatuhan regulasi.",
+    "sEn": "Supporting the environmental agency's field checks as part of regulatory compliance.",
+    "status": "pub",
+    "img": "",
+    "updatedAt": "2026-10-29T02:30:00.000Z"
+  },
+  "n14": {
+    "cat": "safe",
+    "date": "2026-05-06",
+    "tId": "Apa Itu Good Mining Practice?",
+    "tEn": "What Is Good Mining Practice?",
+    "sId": "Mengenal pedoman industri untuk operasi tambang yang aman, bertanggung jawab, dan berkelanjutan.",
+    "sEn": "The industry guideline for safe, responsible and sustainable mining, explained.",
+    "status": "pub",
+    "img": "",
+    "updatedAt": "2026-10-29T02:30:00.000Z"
+  },
+  "n15": {
+    "cat": "com",
+    "date": "2026-04-30",
+    "tId": "Pasar Lebih Baik, Lapangan Lebih Lengkap",
+    "tEn": "A Better Market and a Better-Equipped Field",
+    "sId": "Renovasi Pasar Arba dan fasilitas pendukung di lapangan sepak bola Rantau Bakula.",
+    "sEn": "Renovation of Pasar Arba and new facilities at the Rantau Bakula football field.",
+    "status": "pub",
+    "img": "",
+    "updatedAt": "2026-10-29T02:30:00.000Z"
+  }
+}

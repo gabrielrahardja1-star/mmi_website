@@ -1,0 +1,50 @@
+{
+  "j01": {
+    "tId": "Mining Engineer (Underground) (contoh)",
+    "tEn": "Mining Engineer (Underground) (example)",
+    "loc": "Sungai Pinang, Kalsel",
+    "typeId": "Penuh waktu",
+    "typeEn": "Full-time",
+    "url": "https://id.jobstreet.com/",
+    "status": "open",
+    "order": 1,
+    "date": "2026-10-29",
+    "updatedAt": "2026-10-29T02:30:00.000Z"
+  },
+  "j02": {
+    "tId": "Safety Officer (K3) (contoh)",
+    "tEn": "Safety Officer (HSE) (example)",
+    "loc": "Sungai Pinang, Kalsel",
+    "typeId": "Penuh waktu",
+    "typeEn": "Full-time",
+    "url": "https://id.jobstreet.com/",
+    "status": "open",
+    "order": 2,
+    "date": "2026-10-29",
+    "updatedAt": "2026-10-29T02:30:00.000Z"
+  },
+  "j03": {
+    "tId": "Staf Keuangan (contoh)",
+    "tEn": "Finance Staff (example)",
+    "loc": "Sungai Pinang, Kalsel",
+    "typeId": "Penuh waktu",
+    "typeEn": "Full-time",
+    "url": "https://id.jobstreet.com/",
+    "status": "open",
+    "order": 3,
+    "date": "2026-10-29",
+    "updatedAt": "2026-10-29T02:30:00.000Z"
+  },
+  "j04": {
+    "tId": "Mekanik Alat Berat (contoh)",
+    "tEn": "Heavy Equipment Mechanic (example)",
+    "loc": "Sungai Pinang, Kalsel",
+    "typeId": "Kontrak",
+    "typeEn": "Contract",
+    "url": "https://id.jobstreet.com/",
+    "status": "open",
+    "order": 4,
+    "date": "2026-10-29",
+    "updatedAt": "2026-10-29T02:30:00.000Z"
+  }
+}
