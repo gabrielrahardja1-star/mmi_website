@@ -1,0 +1,11 @@
+/* Design tokens shared by the public site and the editor. Colours, type and spacing scale from CLAUDE.md section 7. */
+:root{
+  --blue:#3E82C4; --blue-btn:#3778B8; --blue-deep:#2B5F94; --tint:#F1F6FB; --line:#DDE5EE;
+  --ink:#0F1419; --ink-2:#56616C; --white:#FFFFFF; --ph:#D9E3EC; --ph-ink:#3F4B57;
+  --warn-bg:#FFF7E8; --warn-line:#EBC88A; --warn-ink:#6E4B00;
+  --display:"Archivo Variable","Archivo","Helvetica Neue",Arial,sans-serif;
+  --body:"IBM Plex Sans","Segoe UI",system-ui,sans-serif;
+  --r:3px; --cut:28px;
+  --s1:8px; --s2:16px; --s3:24px; --s4:40px; --s5:64px; --s6:96px;
+  color-scheme:light;
+}

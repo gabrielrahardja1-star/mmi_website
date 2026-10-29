@@ -2,12 +2,16 @@ import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { nextCookies } from "better-auth/next-js";
 import { admin, twoFactor } from "better-auth/plugins";
+import { createAccessControl } from "better-auth/plugins/access";
+import { adminAc, defaultStatements } from "better-auth/plugins/admin/access";
 import { getDb } from "@/db";
 import * as authSchema from "@/db/auth-schema";
 import { getEnv } from "@/lib/env";
 
-export const ROLES = ["admin", "editor", "contributor"] as const;
-export type Role = (typeof ROLES)[number];
+// The admin plugin refuses to assign a role it doesn't know, so editor and contributor are declared
+// here. What each role may do with content is enforced by our own checks (src/lib/roles.ts).
+const ac = createAccessControl(defaultStatements);
+const roles = { admin: adminAc, editor: ac.newRole({}), contributor: ac.newRole({}) };
 
 function createAuth() {
   const env = getEnv();
@@ -30,6 +34,7 @@ function createAuth() {
       max: 100,
       customRules: {
         "/sign-in/email": { window: 300, max: 5 },
+        "/two-factor/verify-totp": { window: 300, max: 5 },
       },
     },
     advanced: {
@@ -39,7 +44,7 @@ function createAuth() {
       ipAddress: { ipAddressHeaders: ["cf-connecting-ip", "x-forwarded-for"] },
     },
     plugins: [
-      admin({ defaultRole: "contributor", adminRoles: ["admin"] }),
+      admin({ ac, roles, defaultRole: "contributor", adminRoles: ["admin"] }),
       twoFactor({ issuer: "MMI Editor" }),
       nextCookies(),
     ],
