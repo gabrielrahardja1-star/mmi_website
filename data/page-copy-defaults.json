@@ -197,16 +197,16 @@
       "en": "Beware of recruitment scams"
     },
     "careers-p-6": {
-      "id": "PT Merge Mining Industri tidak pernah memungut biaya apa pun dalam proses rekrutmen, termasuk biaya tes, akomodasi, atau tiket perjalanan. Kami hanya membuka lowongan melalui situs ini dan halaman JobStreet resmi kami. Jika ragu, hubungi [email HR resmi].",
-      "en": "PT Merge Mining Industri never charges any fee during recruitment, including for tests, lodging or travel tickets. We only post openings on this site and our official JobStreet page. If in doubt, contact [official HR email]."
+      "id": "PT Merge Mining Industri tidak pernah memungut biaya apa pun dalam proses rekrutmen, termasuk biaya tes, akomodasi, atau tiket perjalanan. Kami hanya membuka lowongan melalui situs ini dan halaman JobStreet resmi kami. Jika ragu, hubungi external.relation@mergecoal.co.",
+      "en": "PT Merge Mining Industri never charges any fee during recruitment, including for tests, lodging or travel tickets. We only post openings on this site and our official JobStreet page. If in doubt, contact external.relation@mergecoal.co."
     },
     "foot-p-1": {
       "id": "Perusahaan tambang batu bara bawah tanah di Kalimantan Selatan.",
       "en": "An underground coal mining company in South Kalimantan."
     },
     "foot-p-2": {
-      "id": "[email@perusahaan]",
-      "en": "[email@perusahaan]"
+      "id": "external.relation@mergecoal.co",
+      "en": "external.relation@mergecoal.co"
     }
   },
   "img": {

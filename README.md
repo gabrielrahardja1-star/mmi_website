@@ -80,7 +80,7 @@ src/components/site/ the website components (shared by the public site and the e
 src/components/editor/ the editor: top bar, tools, inspector, canvas
 src/db/              database tables (Drizzle)       drizzle/   the SQL migrations
 src/proxy.ts         decides public site vs editor from the address (src/lib/host-routing.ts)
-scripts/             one-off tools: migrate, seed, create-user, cleanup-media, import-covers, fix-gallery, e2e test
+scripts/             one-off tools: migrate, seed, create-user, cleanup-media, import-covers, fix-gallery, fill-stories, e2e test
 deploy/              nginx templates, deploy / backup / verify scripts, production .env template
 data/                the starter content and the default page text (page-copy-defaults.json)
 ```

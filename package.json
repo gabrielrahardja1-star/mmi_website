@@ -17,7 +17,8 @@
     "user:create": "tsx --env-file-if-exists=.env scripts/create-user.ts",
     "media:cleanup": "tsx --env-file-if-exists=.env scripts/cleanup-media.ts",
     "covers:import": "tsx --env-file-if-exists=.env scripts/import-covers.ts",
-    "gallery:fix": "tsx --env-file-if-exists=.env scripts/fix-gallery.ts"
+    "gallery:fix": "tsx --env-file-if-exists=.env scripts/fix-gallery.ts",
+    "stories:fill": "tsx --env-file-if-exists=.env scripts/fill-stories.ts"
   },
   "dependencies": {
     "@fontsource-variable/archivo": "5.3.0",
