@@ -1,11 +1,14 @@
 import Link from "next/link";
-import { AboutPage, CareersPage, HomePage, MediaPage } from "./pages";
+import { notFound, permanentRedirect } from "next/navigation";
+import { AboutPage, CareersPage, HomePage, MediaPage, StoryPage } from "./pages";
 import { Bi } from "./primitives";
 import { SiteShell } from "./site-shell";
-import { getPublicContent } from "@/lib/content";
+import { SOCIAL } from "./site-footer";
+import { getPublicContent, getPublicNews } from "@/lib/content";
 import type { Lang } from "@/lib/format";
 import { makeCopy } from "@/lib/page-copy";
-import { pagePath, type PageKey } from "@/lib/routes";
+import { newsPath, newsSlug, pagePath, type PageKey } from "@/lib/routes";
+import { jsonLd, newsData, newsMetadata, organizationData } from "@/lib/site-metadata";
 
 const VIEWS = { home: HomePage, about: AboutPage, media: MediaPage, careers: CareersPage };
 
@@ -16,9 +19,40 @@ export function sitePage(key: PageKey, lang: Lang) {
     const content = await getPublicContent(lang);
     return (
       <SiteShell current={key} copy={content.copy}>
+        {key === "home" && <StructuredData data={organizationData(SOCIAL.map(([, url]) => url))} />}
         <View content={content} edit={false} />
       </SiteShell>
     );
+  };
+}
+
+function StructuredData({ data }: { data: object }) {
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(data) }} />;
+}
+
+type StoryProps = { params: Promise<{ slug: string }> };
+const storyOf = async ({ params }: StoryProps) => getPublicNews((await params).slug.slice(-8));
+
+// One story's page. /berita/x and /en/berita/x both call this. An outdated title in the address redirects.
+export function storyPage(lang: Lang) {
+  return async function SiteStory(props: StoryProps) {
+    const n = await storyOf(props);
+    if (!n) notFound();
+    if ((await props.params).slug !== newsSlug(n)) permanentRedirect(newsPath(n, lang));
+    const content = await getPublicContent(lang);
+    return (
+      <SiteShell current="media" copy={content.copy} langPaths={{ id: newsPath(n, "id"), en: newsPath(n, "en") }}>
+        <StructuredData data={newsData(n, lang)} />
+        <StoryPage n={n} lang={lang} />
+      </SiteShell>
+    );
+  };
+}
+
+export function storyMetadata(lang: Lang) {
+  return async function generateMetadata(props: StoryProps) {
+    const n = await storyOf(props);
+    return n ? newsMetadata(n, lang) : {};
   };
 }
 

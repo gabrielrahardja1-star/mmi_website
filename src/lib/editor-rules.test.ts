@@ -3,6 +3,7 @@ import { test } from "node:test";
 import { CONTENT_SCHEMAS, fieldErrors, isJobStreetUrl, isYouTubeUrl } from "./content-schemas";
 import { checkWrite } from "./permissions";
 import { copyDiffers, pageCopyInput } from "./page-copy-schema";
+import { newsPath, newsSlug } from "./routes";
 
 const UUID = "bb8fb42a-2b3a-4fca-a12e-b4fa6a9ddc03";
 
@@ -98,4 +99,11 @@ test("copyDiffers ignores defaults and only flags real changes", () => {
   assert.equal(copyDiffers({ text: { "home-h1-1": { id: "Baru", en: "New" } }, img: {} }, { text: {}, img: {} }), true);
   assert.equal(copyDiffers({ text: {}, img: { hero: UUID } }, { text: {}, img: {} }), true);
   assert.equal(copyDiffers({ text: {}, img: { hero: UUID } }, { text: {}, img: { hero: UUID } }), false);
+});
+
+test("a story's address comes from its title and keeps working if the title changes", () => {
+  const id = "7471667b-0000-4000-8000-000000000000";
+  assert.equal(newsSlug({ id, titleId: "Apa Itu Good Mining Practice?" }), "apa-itu-good-mining-practice-7471667b");
+  assert.equal(newsPath({ id, titleId: "Madrasah Mura' Atusshibiyan" }, "en"), "/en/berita/madrasah-mura-atusshibiyan-7471667b");
+  assert.equal(newsSlug({ id, titleId: "!!!" }), "7471667b");
 });

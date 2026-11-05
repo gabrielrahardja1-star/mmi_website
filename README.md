@@ -41,7 +41,8 @@ uploaded photos (`/opt/mmi_website/uploads`).
 
 - **Page text and the hero / team / About photos:** edits are saved automatically as a *draft*. Visitors
   do not see them until an Editor or Admin presses **Terbitkan**.
-- **News:** has its own Draft / Publish buttons and goes live immediately when published.
+- **News:** has its own Draft / Publish buttons and goes live immediately when published. Each published item
+  gets its own page at `/berita/...`, showing the "Isi lengkap" text, or the summary if that is empty.
 - **Gallery photos, videos and job openings:** go live as soon as they are saved as visible / open.
 - **Contributors** can write drafts but cannot publish or change anything that is already live.
 

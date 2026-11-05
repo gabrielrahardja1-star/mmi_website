@@ -11,6 +11,9 @@ export type NewsItem = {
   titleEn: string;
   summaryId: string;
   summaryEn: string;
+  bodyId: string;
+  bodyEn: string;
+  updatedAt?: Date | string | null;
   coverImageId: string | null;
   status: string;
 };

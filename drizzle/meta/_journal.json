@@ -8,6 +8,13 @@
       "when": 1793244543303,
       "tag": "0000_init",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1793869505742,
+      "tag": "0001_nostalgic_kulan_gath",
+      "breakpoints": true
     }
   ]
 }

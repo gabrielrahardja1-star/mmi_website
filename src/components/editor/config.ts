@@ -63,7 +63,7 @@ export const CONFIG: Record<ContentType, TypeConfig> = {
   news: {
     one: "berita",
     add: "Tulis berita",
-    blank: () => ({ cat: "com", date: today(), titleId: "", titleEn: "", summaryId: "", summaryEn: "", coverImageId: null, status: "draft" }),
+    blank: () => ({ cat: "com", date: today(), titleId: "", titleEn: "", summaryId: "", summaryEn: "", bodyId: "", bodyEn: "", coverImageId: null, status: "draft" }),
     title: (x) => s(x.titleId) || "(Tanpa judul)",
     sub: (x) => `${catLabel(x.cat)} · ${s(x.date)}`,
     live: (x) => x.status === "pub",
@@ -71,7 +71,7 @@ export const CONFIG: Record<ContentType, TypeConfig> = {
     pub: true,
     search: (x) => `${s(x.titleId)} ${s(x.titleEn)}`,
     form: [
-      { sec: "Isi berita", fields: [{ bi: ["titleId", "titleEn"], label: "Judul", req: true, max: 90 }, { bi: ["summaryId", "summaryEn"], label: "Ringkasan", area: true, max: 220 }] },
+      { sec: "Isi berita", fields: [{ bi: ["titleId", "titleEn"], label: "Judul", req: true, max: 90 }, { bi: ["summaryId", "summaryEn"], label: "Ringkasan", area: true, max: 220 }, { bi: ["bodyId", "bodyEn"], label: "Isi lengkap", area: true, max: 5000, help: "Tampil di halaman berita. Pisahkan paragraf dengan baris kosong." }] },
       {
         sec: "Detail",
         fields: [{ two: [{ k: "cat", label: "Kategori", sel: Object.entries(CATS).map(([k, v]) => [k, v[0]] as [string, string]) }, { k: "date", label: "Tanggal", date: true, req: true }] }],

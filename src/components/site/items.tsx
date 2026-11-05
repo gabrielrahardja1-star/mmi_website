@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Bi, colAttrs } from "./primitives";
 import { CATS, fmtDate, type CatKey, type ViewLang } from "@/lib/format";
-import { localizePath } from "@/lib/routes";
+import { newsPath } from "@/lib/routes";
 import { mediaUrl } from "@/lib/media";
 import type { GalleryItem, JobItem, NewsItem, VideoItem } from "@/lib/site-types";
 
@@ -18,10 +18,10 @@ export function StoryCard({
 }) {
   const [catId, catEn] = CATS[n.cat as CatKey] ?? ["", ""];
   return (
-    <Link className="story" href={localizePath("/media", lang)} {...colAttrs(edit, "news", n.id)}>
+    <Link className="story" href={newsPath(n, lang)} {...colAttrs(edit, "news", n.id)}>
       {n.coverImageId ? (
         <div className="photo">
-          <img src={mediaUrl(n.coverImageId, 800)} alt="" loading="lazy" />
+          <img src={mediaUrl(n.coverImageId, 800)} alt={lang === "en" ? n.titleEn || n.titleId : n.titleId} loading="lazy" />
         </div>
       ) : (
         <div className="ph">

@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import { getEnv, isIndexable } from "@/lib/env";
 import type { Lang } from "@/lib/format";
-import { pagePath, type PageKey } from "@/lib/routes";
+import { mediaUrl } from "@/lib/media";
+import { newsPath, pagePath, type PageKey } from "@/lib/routes";
+import type { NewsItem } from "@/lib/site-types";
 
 const SITE_NAME = "PT Merge Mining Industri";
+const SHARE_IMAGE = "/static/logo-mark.png";
 
 const META: Record<Lang, Record<PageKey, { title: string; description: string }>> = {
   id: {
@@ -66,9 +69,71 @@ export function pageMetadata(key: PageKey, lang: Lang): Metadata {
       type: "website",
       locale: lang === "id" ? "id_ID" : "en_US",
       alternateLocale: lang === "id" ? "en_US" : "id_ID",
+      images: [SHARE_IMAGE],
     },
     icons: { icon: "/static/logo-mark.png" },
     // Hidden from search engines until SITE_INDEXABLE=true.
     robots: isIndexable() ? { index: true, follow: true } : { index: false, follow: false },
+  };
+}
+
+type Story = Pick<NewsItem, "id" | "date" | "titleId" | "titleEn" | "summaryId" | "summaryEn" | "coverImageId">;
+
+const storyText = (n: Story, lang: Lang) => ({
+  title: lang === "en" ? n.titleEn || n.titleId : n.titleId,
+  description: lang === "en" ? n.summaryEn || n.summaryId : n.summaryId,
+});
+
+// Same as pageMetadata, for one story's page.
+export function newsMetadata(n: Story, lang: Lang): Metadata {
+  const { title, description } = storyText(n, lang);
+  return {
+    metadataBase: new URL(getEnv().PUBLIC_ORIGIN.replace(/\/$/, "")),
+    title: `${title} | ${SITE_NAME}`,
+    description,
+    alternates: {
+      canonical: newsPath(n, lang),
+      languages: { id: newsPath(n, "id"), en: newsPath(n, "en"), "x-default": newsPath(n, "id") },
+    },
+    openGraph: {
+      title,
+      description,
+      url: newsPath(n, lang),
+      siteName: SITE_NAME,
+      type: "article",
+      publishedTime: n.date,
+      locale: lang === "id" ? "id_ID" : "en_US",
+      images: [n.coverImageId ? mediaUrl(n.coverImageId) : SHARE_IMAGE],
+    },
+    icons: { icon: "/static/logo-mark.png" },
+    robots: isIndexable() ? { index: true, follow: true } : { index: false, follow: false },
+  };
+}
+
+// Structured data for search engines. The < is escaped so text can't close the script tag.
+export const jsonLd = (data: object) => JSON.stringify({ "@context": "https://schema.org", ...data }).replace(/</g, "\\u003c");
+
+const originOf = () => getEnv().PUBLIC_ORIGIN.replace(/\/$/, "");
+
+export const organizationData = (sameAs: string[]) => ({
+  "@type": "Organization",
+  name: SITE_NAME,
+  url: originOf(),
+  logo: originOf() + SHARE_IMAGE,
+  sameAs,
+});
+
+export function newsData(n: Story, lang: Lang) {
+  const { title, description } = storyText(n, lang);
+  return {
+    "@type": "NewsArticle",
+    headline: title,
+    description,
+    datePublished: n.date,
+    inLanguage: lang,
+    mainEntityOfPage: originOf() + newsPath(n, lang),
+    image: [originOf() + (n.coverImageId ? mediaUrl(n.coverImageId) : SHARE_IMAGE)],
+    author: { "@type": "Organization", name: SITE_NAME },
+    publisher: { "@type": "Organization", name: SITE_NAME, logo: { "@type": "ImageObject", url: originOf() + SHARE_IMAGE } },
   };
 }

@@ -11,17 +11,19 @@ export function SiteShell({
   copy,
   edit = false,
   canvasLang,
+  langPaths,
   children,
 }: {
   current: PageKey;
   copy: Copy;
   edit?: boolean;
   canvasLang?: Lang; // editor canvas only: which language the header toggle shows as active
+  langPaths?: Record<Lang, string>;
   children: ReactNode;
 }) {
   return (
     <>
-      <SiteHeader current={current} lang={copy.lang} activeLang={canvasLang} />
+      <SiteHeader current={current} lang={copy.lang} activeLang={canvasLang} langPaths={langPaths} />
       <main>
         <div className="view">{children}</div>
       </main>

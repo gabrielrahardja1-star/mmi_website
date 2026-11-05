@@ -10,7 +10,7 @@ const LABEL: Record<string, [string, string]> = {
   careers: ["Karir", "Careers"],
 };
 
-const SOCIAL: [string, string][] = [
+export const SOCIAL: [string, string][] = [
   ["Instagram", "https://www.instagram.com/mergecoal"],
   ["Facebook", "https://www.facebook.com/share/1Hm1aw7847/"],
   ["YouTube", "https://www.youtube.com/@mergecoal"],

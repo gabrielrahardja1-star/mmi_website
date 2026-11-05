@@ -15,6 +15,7 @@ const VIEWS = { home: HomePage, about: AboutPage, media: MediaPage, careers: Car
 
 const pageOfHref = (href: string): PageKey | null => {
   const path = href.replace(/^\/en(?=\/|$)/, "") || "/";
+  if (path.startsWith("/berita/")) return "media"; // story pages have no canvas of their own
   return PAGES.find((p) => p.path === path)?.key ?? null;
 };
 

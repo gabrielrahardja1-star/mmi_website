@@ -43,6 +43,8 @@ export const news = pgTable(
     titleEn: text("title_en").notNull().default(""),
     summaryId: text("summary_id").notNull().default(""),
     summaryEn: text("summary_en").notNull().default(""),
+    bodyId: text("body_id").notNull().default(""), // the full story, shown on its own page
+    bodyEn: text("body_en").notNull().default(""),
     coverImageId: uuid("cover_image_id").references(() => media.id, { onDelete: "set null" }),
     status: text("status").notNull().default("draft"), // draft | pub
     ...audit,

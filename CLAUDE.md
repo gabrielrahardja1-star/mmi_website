@@ -204,6 +204,9 @@ and where it differs. **`README.md` is the operating manual** (deploy, accounts,
 - **Editor canvas is an iframe**, so the phone view uses the site's real media queries.
 - **No Artikel page** (removed 5 November 2026, the owner's decision, to avoid republishing the wrong outside
   coverage). Sections 3, 4 and 5 still describe it. The `articles` table stays in the database, unused.
+- **Each news item has its own page** (added 5 November 2026 for SEO, not in the prototype): `/berita/<title>-<id>`,
+  with a full-text field (`body_id`/`body_en`, "Isi lengkap" in the editor). With no full text the page shows the
+  summary. The address ends in the id, so editing a title redirects old links.
 
 ### Gotchas for whoever changes the code next
 

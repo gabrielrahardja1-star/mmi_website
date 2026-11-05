@@ -2,10 +2,10 @@ import Link from "next/link";
 import { GalleryPhoto, JobRowItem, StoryCard, VideoCard } from "./items";
 import { NewsBrowser } from "./news-browser";
 import { Bi, Ed, Empty, PhotoSlot } from "./primitives";
-import type { SiteContent } from "@/lib/site-types";
+import type { NewsItem, SiteContent } from "@/lib/site-types";
 import { mediaUrl } from "@/lib/media";
 import { localizePath } from "@/lib/routes";
-import type { ViewLang } from "@/lib/format";
+import { CATS, fmtDate, type CatKey, type ViewLang } from "@/lib/format";
 
 type PageProps = { content: SiteContent; edit: boolean };
 
@@ -291,6 +291,53 @@ export function MediaPage({ content, edit }: PageProps) {
             ) : (
               <Empty lang={lang} id="Belum ada video" en="No videos yet" />
             )}
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
+
+/* ================= Berita ================= */
+export function StoryPage({ n, lang }: { n: NewsItem; lang: ViewLang }) {
+  const [catId, catEn] = CATS[n.cat as CatKey] ?? ["", ""];
+  const title = lang === "en" ? n.titleEn || n.titleId : n.titleId;
+  const body = (lang === "en" ? n.bodyEn || n.bodyId : n.bodyId) || (lang === "en" ? n.summaryEn || n.summaryId : n.summaryId);
+  return (
+    <>
+      <div className="pagehead">
+        <div className="wrap">
+          <div className="crumbs">
+            <Link href={localizePath("/media", lang)}>Media</Link> / <Bi lang={lang} id={catId} en={catEn} />
+          </div>
+          <h1>{title}</h1>
+          <div className="meta">
+            <span className="cat">
+              <Bi lang={lang} id={catId} en={catEn} />
+            </span>
+            <span>
+              <Bi lang={lang} id={fmtDate(n.date, "id")} en={fmtDate(n.date, "en")} />
+            </span>
+          </div>
+        </div>
+      </div>
+      <section>
+        <div className="wrap">
+          <div className="story-page">
+            {n.coverImageId && (
+              <div className="photo">
+                <img src={mediaUrl(n.coverImageId)} alt={title} />
+              </div>
+            )}
+            {body
+              .split(/\n\s*\n/)
+              .filter(Boolean)
+              .map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
+            <Link className="link" href={localizePath("/media", lang)}>
+              <Bi lang={lang} id="Kembali ke Media" en="Back to Media" />
+            </Link>
           </div>
         </div>
       </section>

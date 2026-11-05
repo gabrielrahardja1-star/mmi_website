@@ -78,6 +78,10 @@ figcaption{font-size:.8rem;color:var(--ink-2)}
 .story .ext{font-weight:600;font-size:.88rem;color:var(--blue-deep)}
 .story .photo{aspect-ratio:3/2}
 .lead-grid .side .story .photo{aspect-ratio:1}
+/* one story's page */
+.story-page{display:grid;gap:var(--s3);max-width:760px;justify-items:start}
+.story-page .photo{aspect-ratio:3/2;width:100%}
+.story-page p{font-size:1.05rem;white-space:pre-line}
 .gallery .photo:first-child{grid-row:span 2}
 .gallery .photo.wide{grid-column:span 2}
 /* homepage: one lead story + two compact */

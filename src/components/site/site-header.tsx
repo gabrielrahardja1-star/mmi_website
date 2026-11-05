@@ -18,7 +18,17 @@ function rememberLang(l: Lang) {
   document.cookie = `${LANG_COOKIE}=${l}; path=/; max-age=31536000; samesite=lax`;
 }
 
-export function SiteHeader({ current, lang, activeLang }: { current: PageKey; lang: ViewLang; activeLang?: Lang }) {
+export function SiteHeader({
+  current,
+  lang,
+  activeLang,
+  langPaths,
+}: {
+  current: PageKey;
+  lang: ViewLang;
+  activeLang?: Lang;
+  langPaths?: Record<Lang, string>; // a page that isn't in PAGES, such as a story: where the toggle goes
+}) {
   const [open, setOpen] = useState(false);
   // In the editor canvas (lang="both") the editor shell owns the language; clicks on the toggle are
   // caught by the canvas and forwarded to it, so the buttons here only display the state.
@@ -31,7 +41,7 @@ export function SiteHeader({ current, lang, activeLang }: { current: PageKey; la
       </button>
     ) : (
       <a
-        href={pagePath(current, l)}
+        href={langPaths?.[l] ?? pagePath(current, l)}
         aria-current={active === l ? "true" : undefined}
         hrefLang={l}
         onClick={() => rememberLang(l)}

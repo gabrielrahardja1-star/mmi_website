@@ -5,6 +5,7 @@ import { TYPE_EN } from "@/lib/format";
 export const LIMITS = {
   newsTitle: 90,
   newsSummary: 220,
+  newsBody: 5000,
   caption: 120,
   videoTitle: 80,
   jobTitle: 70,
@@ -64,6 +65,8 @@ export const newsInput = z.strictObject({
   titleEn: optional("Judul (English)", LIMITS.newsTitle),
   summaryId: optional("Ringkasan (Indonesia)", LIMITS.newsSummary),
   summaryEn: optional("Ringkasan (English)", LIMITS.newsSummary),
+  bodyId: optional("Isi lengkap (Indonesia)", LIMITS.newsBody),
+  bodyEn: optional("Isi lengkap (English)", LIMITS.newsBody),
   coverImageId: z.preprocess(emptyToNull, z.uuid("Foto tidak valid.").nullable()).default(null),
   status: z.enum(["draft", "pub"], "Status tidak valid."),
 });
