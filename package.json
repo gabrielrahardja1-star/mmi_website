@@ -15,7 +15,8 @@
     "db:migrate": "tsx --env-file-if-exists=.env scripts/migrate.ts",
     "db:seed": "tsx --env-file-if-exists=.env scripts/seed.ts",
     "user:create": "tsx --env-file-if-exists=.env scripts/create-user.ts",
-    "media:cleanup": "tsx --env-file-if-exists=.env scripts/cleanup-media.ts"
+    "media:cleanup": "tsx --env-file-if-exists=.env scripts/cleanup-media.ts",
+    "covers:import": "tsx --env-file-if-exists=.env scripts/import-covers.ts"
   },
   "dependencies": {
     "@fontsource-variable/archivo": "5.3.0",
