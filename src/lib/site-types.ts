@@ -14,16 +14,6 @@ export type NewsItem = {
   coverImageId: string | null;
   status: string;
 };
-export type ArticleItem = {
-  id: string;
-  source: string;
-  url: string;
-  date: string | null;
-  title: string;
-  summaryId: string;
-  summaryEn: string;
-  status: string;
-};
 export type GalleryItem = {
   id: string;
   imageId: string;
@@ -55,7 +45,6 @@ export type JobItem = {
 
 export type RawContent = {
   news: NewsItem[];
-  articles: ArticleItem[];
   gallery: GalleryItem[];
   videos: VideoItem[];
   jobs: JobItem[];

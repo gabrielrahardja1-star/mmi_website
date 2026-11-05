@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { AboutPage, ArticlesPage, CareersPage, HomePage, MediaPage } from "./pages";
+import { AboutPage, CareersPage, HomePage, MediaPage } from "./pages";
 import { Bi } from "./primitives";
 import { SiteShell } from "./site-shell";
 import { getPublicContent } from "@/lib/content";
@@ -7,7 +7,7 @@ import type { Lang } from "@/lib/format";
 import { makeCopy } from "@/lib/page-copy";
 import { pagePath, type PageKey } from "@/lib/routes";
 
-const VIEWS = { home: HomePage, about: AboutPage, media: MediaPage, articles: ArticlesPage, careers: CareersPage };
+const VIEWS = { home: HomePage, about: AboutPage, media: MediaPage, careers: CareersPage };
 
 // One page component per (page, language). The /tentang and /en/tentang route files both call this.
 export function sitePage(key: PageKey, lang: Lang) {

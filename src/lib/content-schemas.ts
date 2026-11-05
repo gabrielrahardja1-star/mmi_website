@@ -5,9 +5,6 @@ import { TYPE_EN } from "@/lib/format";
 export const LIMITS = {
   newsTitle: 90,
   newsSummary: 220,
-  articleSummary: 200,
-  articleSource: 100,
-  articleTitle: 300,
   caption: 120,
   videoTitle: 80,
   jobTitle: 70,
@@ -71,16 +68,6 @@ export const newsInput = z.strictObject({
   status: z.enum(["draft", "pub"], "Status tidak valid."),
 });
 
-export const articlesInput = z.strictObject({
-  source: required("Nama media", LIMITS.articleSource),
-  url: httpsUrl("Tautan artikel"),
-  date: z.preprocess(emptyToNull, isoDate("Tanggal terbit").nullable()).default(null),
-  title: required("Judul asli artikel", LIMITS.articleTitle),
-  summaryId: optional("Ringkasan (Indonesia)", LIMITS.articleSummary),
-  summaryEn: optional("Ringkasan (English)", LIMITS.articleSummary),
-  status: z.enum(["draft", "pub"], "Status tidak valid."),
-});
-
 export const galleryInput = z.strictObject({
   imageId: z.uuid("Pilih foto terlebih dahulu."),
   captionId: optional("Keterangan (Indonesia)", LIMITS.caption),
@@ -109,7 +96,6 @@ export const jobsInput = z.strictObject({
 
 export const CONTENT_SCHEMAS = {
   news: newsInput,
-  articles: articlesInput,
   gallery: galleryInput,
   videos: videosInput,
   jobs: jobsInput,

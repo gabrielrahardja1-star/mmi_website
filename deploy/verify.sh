@@ -21,7 +21,7 @@ expect() { # description, expected status, host, path
 
 echo "Checking $BASE as host $PUB and $CMS"
 expect "app is healthy"                              200 "127.0.0.1" /api/health
-for p in / /tentang /media /artikel /karir /en /en/tentang /en/media /en/artikel /en/karir; do
+for p in / /tentang /media /karir /en /en/tentang /en/media /en/karir; do
   expect "public page $p"                            200 "$PUB" "$p"
 done
 expect "unknown page gives the site's 404"          404 "$PUB" /no-such-page

@@ -20,10 +20,6 @@ const META: Record<Lang, Record<PageKey, { title: string; description: string }>
       title: `Media | ${SITE_NAME}`,
       description: "Berita, kegiatan, foto, dan video dari PT Merge Mining Industri.",
     },
-    articles: {
-      title: `Artikel | ${SITE_NAME}`,
-      description: "Liputan tentang PT Merge Mining Industri dari media lain.",
-    },
     careers: {
       title: `Karir | ${SITE_NAME}`,
       description: "Lowongan kerja di PT Merge Mining Industri. Semua lowongan dibuka melalui JobStreet.",
@@ -42,10 +38,6 @@ const META: Record<Lang, Record<PageKey, { title: string; description: string }>
     media: {
       title: `Media | ${SITE_NAME}`,
       description: "News, activities, photos and videos from PT Merge Mining Industri.",
-    },
-    articles: {
-      title: `Articles | ${SITE_NAME}`,
-      description: "Coverage of PT Merge Mining Industri from other publications.",
     },
     careers: {
       title: `Careers | ${SITE_NAME}`,

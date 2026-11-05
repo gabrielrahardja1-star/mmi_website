@@ -54,7 +54,7 @@ export const news = pgTable(
   ],
 );
 
-// External press coverage: headline and our own summary only, never article text.
+// Retired: the Artikel page was removed in November 2026. Nothing reads this table; it stays so old rows are not lost.
 export const articles = pgTable(
   "articles",
   {

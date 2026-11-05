@@ -75,22 +75,7 @@ figcaption{font-size:.8rem;color:var(--ink-2)}
 .story:hover h3{text-decoration:underline;text-decoration-color:var(--blue);text-underline-offset:4px}
 .story p{font-size:.93rem;color:var(--ink-2)}
 .story .txt{display:grid;gap:10px}
-.story.press .ph.src{background:var(--tint);border:1px solid var(--line);align-items:center;justify-content:center;text-align:center;padding:var(--s3)}
-.story.press .ph.src span{font-family:var(--display);font-stretch:112%;font-weight:600;font-size:1.4rem;color:var(--ink)}
 .story .ext{font-weight:600;font-size:.88rem;color:var(--blue-deep)}
-/* articles: ruled list */
-.press-list{border-top:2px solid var(--ink)}
-.pitem{display:grid;grid-template-columns:200px 1fr auto;gap:var(--s4);align-items:start;padding-block:var(--s4);border-bottom:1px solid var(--line);text-decoration:none;color:inherit}
-.pitem > *{min-width:0}
-.pitem .src{display:grid;gap:4px}
-.pitem .src b{font-family:var(--display);font-stretch:112%;font-weight:600;font-size:1.1rem}
-.pitem .src span{font-size:.82rem;color:var(--ink-2);font-variant-numeric:tabular-nums}
-.pitem .txt{display:grid;gap:10px}
-.pitem h3{font-size:1.35rem}
-.pitem p{color:var(--ink-2)}
-.pitem .ext{font-weight:600;font-size:.9rem;color:var(--blue-deep);white-space:nowrap}
-.pitem:hover h3{text-decoration:underline;text-decoration-color:var(--blue);text-underline-offset:4px}
-@media (max-width:760px){.pitem{grid-template-columns:1fr;gap:var(--s2)}}
 .story .photo{aspect-ratio:3/2}
 .lead-grid .side .story .photo{aspect-ratio:1}
 .gallery .photo:first-child{grid-row:span 2}

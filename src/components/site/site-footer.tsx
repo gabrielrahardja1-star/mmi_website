@@ -7,7 +7,6 @@ const FOOT_LINKS = PAGES.filter((p) => p.key !== "home");
 const LABEL: Record<string, [string, string]> = {
   about: ["Tentang Kami", "About Us"],
   media: ["Media", "Media"],
-  articles: ["Artikel", "Articles"],
   careers: ["Karir", "Careers"],
 };
 

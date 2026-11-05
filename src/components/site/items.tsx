@@ -3,7 +3,7 @@ import { Bi, colAttrs } from "./primitives";
 import { CATS, fmtDate, type CatKey, type ViewLang } from "@/lib/format";
 import { localizePath } from "@/lib/routes";
 import { mediaUrl } from "@/lib/media";
-import type { ArticleItem, GalleryItem, JobItem, NewsItem, VideoItem } from "@/lib/site-types";
+import type { GalleryItem, JobItem, NewsItem, VideoItem } from "@/lib/site-types";
 
 export function StoryCard({
   n,
@@ -49,33 +49,6 @@ export function StoryCard({
         )}
       </div>
     </Link>
-  );
-}
-
-// External press coverage: headline, outlet, date and our own one-line summary. Opens the publisher.
-export function PressItem({ a, edit, lang }: { a: ArticleItem; edit: boolean; lang: ViewLang }) {
-  return (
-    <a className="pitem" href={a.url} target="_blank" rel="noopener" {...colAttrs(edit, "articles", a.id)}>
-      <div className="src">
-        <b>{a.source}</b>
-        <span>
-          {a.date ? (
-            <Bi lang={lang} id={fmtDate(a.date, "id")} en={fmtDate(a.date, "en")} />
-          ) : (
-            <Bi lang={lang} id="Tanggal belum diisi" en="No date" />
-          )}
-        </span>
-      </div>
-      <div className="txt">
-        <h3>{a.title}</h3>
-        <p>
-          <Bi lang={lang} id={a.summaryId} en={a.summaryEn} />
-        </p>
-      </div>
-      <span className="ext">
-        <Bi lang={lang} id="Baca artikel" en="Read article" /> ↗
-      </span>
-    </a>
   );
 }
 

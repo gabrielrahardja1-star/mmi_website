@@ -41,7 +41,7 @@ uploaded photos (`/opt/mmi_website/uploads`).
 
 - **Page text and the hero / team / About photos:** edits are saved automatically as a *draft*. Visitors
   do not see them until an Editor or Admin presses **Terbitkan**.
-- **News and press articles:** have their own Draft / Publish buttons and go live immediately when published.
+- **News:** has its own Draft / Publish buttons and goes live immediately when published.
 - **Gallery photos, videos and job openings:** go live as soon as they are saved as visible / open.
 - **Contributors** can write drafts but cannot publish or change anything that is already live.
 
@@ -96,7 +96,7 @@ cp .env.example .env            # then edit DATABASE_URL and AUTH_SECRET
 createdb mmi_website_dev        # or any empty database named in DATABASE_URL
 npm install
 npm run db:migrate
-npm run db:seed                 # sample news, articles and placeholder jobs
+npm run db:seed                 # sample news and placeholder jobs
 npm run user:create -- --email you@example.com --name "Your Name" --role admin
 npm run dev
 ```
@@ -190,8 +190,8 @@ docker compose run --rm tools npm run user:create -- --email <you@mmi> --name "<
 docker compose up -d --build
 ```
 
-`user:create` asks for the password twice and does not show it. The seed loads the sample news and press
-articles, and **placeholder job openings** (their titles end in "(contoh)"): replace them before launch.
+`user:create` asks for the password twice and does not show it. The seed loads the sample news and
+**placeholder job openings** (their titles end in "(contoh)"): replace them before launch.
 
 ### 5.6 Check the container
 
@@ -406,7 +406,6 @@ Work through this list. Until `SITE_INDEXABLE` is `true`, search engines are tol
   - the Vision, Mission and Core Values need management sign-off (their "Draf" badges were removed from
     the site on 29 October 2026), and the company history paragraph in About (removed from the page until
     the text arrives) is still waiting on management;
-  - confirm the date of the ShalokalIndonesia press article;
   - the official logo as SVG, and a white version.
 - [ ] Read the content rules in section 12.
 - [ ] In the editor, click through every page in Indonesian and English, and in the phone view.
@@ -476,7 +475,6 @@ password block (`auth_basic`). Uncomment it, remove it again at launch.
 - **Location stays vague:** "Kecamatan Sungai Pinang, Kalimantan Selatan". No map, no Jakarta office address.
 - **Jobs link to JobStreet only.** The editor refuses other links. The recruitment scam notice must say MMI
   never charges recruitment fees and only posts on this site and its official JobStreet page.
-- **Press page:** headline, outlet, date and our own one-line summary. Never copy article text.
 - **Photos:** anyone shown must be wearing correct PPE, and staff must have agreed to appear.
 - No religious holiday greetings in the news feed.
 - **Design:** keep the existing look. Single light theme, brand blue, Archivo and IBM Plex Sans, 3px

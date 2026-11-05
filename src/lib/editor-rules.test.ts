@@ -46,17 +46,12 @@ test("unknown fields are rejected, so a client can't set updatedBy or id", () =>
   assert.ok(!r.success);
 });
 
-test("an empty cover image or press date becomes null", () => {
+test("an empty cover image becomes null", () => {
   const n = CONTENT_SCHEMAS.news.parse({ cat: "com", date: "2026-10-17", titleId: "x", status: "draft", coverImageId: "" });
   assert.equal(n.coverImageId, null);
-  const a = CONTENT_SCHEMAS.articles.parse({ source: "S", url: "https://x.co/a", title: "T", status: "pub", date: "" });
-  assert.equal(a.date, null);
 });
 
 test("links: https only, YouTube-only videos, JobStreet-only jobs", () => {
-  const art = { source: "S", title: "T", status: "pub" };
-  assert.ok(!CONTENT_SCHEMAS.articles.safeParse({ ...art, url: "http://x.co/a" }).success);
-  assert.ok(!CONTENT_SCHEMAS.articles.safeParse({ ...art, url: "javascript:alert(1)" }).success);
   const vid = { titleId: "V", date: "2026-10-01", status: "show" };
   assert.ok(CONTENT_SCHEMAS.videos.safeParse({ ...vid, url: "https://www.youtube.com/watch?v=abc" }).success);
   assert.ok(CONTENT_SCHEMAS.videos.safeParse({ ...vid, url: "https://youtu.be/abc" }).success);

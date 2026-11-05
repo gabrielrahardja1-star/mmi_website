@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { GalleryPhoto, JobRowItem, PressItem, StoryCard, VideoCard } from "./items";
+import { GalleryPhoto, JobRowItem, StoryCard, VideoCard } from "./items";
 import { NewsBrowser } from "./news-browser";
 import { Bi, Ed, Empty, PhotoSlot } from "./primitives";
 import type { SiteContent } from "@/lib/site-types";
@@ -290,34 +290,6 @@ export function MediaPage({ content, edit }: PageProps) {
               videos.map((v) => <VideoCard key={v.id} v={v} big={videos.length === 1} edit={edit} lang={lang} />)
             ) : (
               <Empty lang={lang} id="Belum ada video" en="No videos yet" />
-            )}
-          </div>
-        </div>
-      </section>
-    </>
-  );
-}
-
-/* ================= Artikel ================= */
-export function ArticlesPage({ content, edit }: PageProps) {
-  const c = content.copy;
-  const lang = content.lang;
-  return (
-    <>
-      <div className="pagehead">
-        <div className="wrap">
-          <Crumbs idLabel="Artikel" enLabel="Articles" lang={lang} />
-          <Ed c={c} edit={edit} k="articles-h1-1" as="h1" />
-          <Ed c={c} edit={edit} k="articles-p-1" as="p" />
-        </div>
-      </div>
-      <section>
-        <div className="wrap">
-          <div className="press-list" id="pressList">
-            {content.articles.length ? (
-              content.articles.map((a) => <PressItem key={a.id} a={a} edit={edit} lang={lang} />)
-            ) : (
-              <Empty lang={lang} id="Belum ada artikel" en="No articles yet" />
             )}
           </div>
         </div>

@@ -3,7 +3,7 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { ED_LABEL, IMG_LABEL, CONTENT_LABEL } from "./config";
 import type { FrameState, Selection, ToFrame, ToParent } from "./protocol";
-import { AboutPage, ArticlesPage, CareersPage, HomePage, MediaPage } from "@/components/site/pages";
+import { AboutPage, CareersPage, HomePage, MediaPage } from "@/components/site/pages";
 import { SiteShell } from "@/components/site/site-shell";
 import { toPublicContent } from "@/lib/public-view";
 import { makeCopy } from "@/lib/page-copy";
@@ -11,7 +11,7 @@ import type { Lang } from "@/lib/format";
 import { PAGES, type PageKey } from "@/lib/routes";
 import type { ContentType } from "@/lib/permissions";
 
-const VIEWS = { home: HomePage, about: AboutPage, media: MediaPage, articles: ArticlesPage, careers: CareersPage };
+const VIEWS = { home: HomePage, about: AboutPage, media: MediaPage, careers: CareersPage };
 
 const pageOfHref = (href: string): PageKey | null => {
   const path = href.replace(/^\/en(?=\/|$)/, "") || "/";

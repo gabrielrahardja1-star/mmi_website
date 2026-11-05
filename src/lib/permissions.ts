@@ -1,14 +1,13 @@
 import type { Role } from "@/lib/roles";
 
-export const CONTENT_TYPES = ["news", "articles", "gallery", "videos", "jobs"] as const;
+export const CONTENT_TYPES = ["news", "gallery", "videos", "jobs"] as const;
 export type ContentType = (typeof CONTENT_TYPES)[number];
 export const isContentType = (v: string): v is ContentType => (CONTENT_TYPES as readonly string[]).includes(v);
 
-// The status value that makes a row visible to visitors. News and articles are published with their
+// The status value that makes a row visible to visitors. News is published with its
 // own Publish button; gallery, videos and jobs go live as soon as they are saved with this status.
 const LIVE_STATUS: Record<ContentType, string> = {
   news: "pub",
-  articles: "pub",
   gallery: "show",
   videos: "show",
   jobs: "open",

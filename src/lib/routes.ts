@@ -1,12 +1,11 @@
 import type { Lang } from "@/lib/format";
 
-export type PageKey = "home" | "about" | "media" | "articles" | "careers";
+export type PageKey = "home" | "about" | "media" | "careers";
 
 export const PAGES: { key: PageKey; path: string; label: string }[] = [
   { key: "home", path: "/", label: "Beranda" },
   { key: "about", path: "/tentang", label: "Tentang Kami" },
   { key: "media", path: "/media", label: "Media" },
-  { key: "articles", path: "/artikel", label: "Artikel" },
   { key: "careers", path: "/karir", label: "Karir" },
 ];
 

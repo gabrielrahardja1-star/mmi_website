@@ -61,7 +61,7 @@ export function Flyout({ e }: { e: Editor }) {
 
   if (e.fly === "add") {
     title = "Tambah ke situs";
-    body = (["news", "gallery", "jobs", "videos", "articles"] as ContentType[]).map((k) => (
+    body = (["news", "gallery", "jobs", "videos"] as ContentType[]).map((k) => (
       <button key={k} className="e-item" onClick={() => newItem(k)}>
         <ItemIcon kind={k} />
         <span className="tx">

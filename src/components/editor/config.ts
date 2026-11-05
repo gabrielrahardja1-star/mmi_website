@@ -46,20 +46,18 @@ const catLabel = (c: unknown) => CATS[s(c) as keyof typeof CATS]?.[0] ?? "—";
 
 export const CONTENT_LABEL: Record<ContentType, string> = {
   news: "Berita",
-  articles: "Artikel media",
   gallery: "Foto galeri",
   videos: "Video",
   jobs: "Lowongan",
 };
 export const PAGE_OF: Record<ContentType, PageKey> = {
   news: "media",
-  articles: "articles",
   gallery: "media",
   videos: "media",
   jobs: "careers",
 };
 export const PAGE_LABEL = Object.fromEntries(SITE_PAGES.map((p) => [p.key, p.label])) as Record<PageKey, string>;
-export const TYPES: ContentType[] = ["news", "articles", "gallery", "videos", "jobs"];
+export const TYPES: ContentType[] = ["news", "gallery", "videos", "jobs"];
 
 export const CONFIG: Record<ContentType, TypeConfig> = {
   news: {
@@ -79,29 +77,6 @@ export const CONFIG: Record<ContentType, TypeConfig> = {
         fields: [{ two: [{ k: "cat", label: "Kategori", sel: Object.entries(CATS).map(([k, v]) => [k, v[0]] as [string, string]) }, { k: "date", label: "Tanggal", date: true, req: true }] }],
       },
       { sec: "Foto sampul", fields: [{ k: "coverImageId", img: true, help: "JPG, PNG atau WEBP. Rasio 3:2 tampil paling baik." }] },
-    ],
-  },
-  articles: {
-    one: "artikel",
-    add: "Tambah artikel media",
-    blank: () => ({ source: "", url: "", date: today(), title: "", summaryId: "", summaryEn: "", status: "draft" }),
-    title: (x) => s(x.title) || "(Tanpa judul)",
-    sub: (x) => s(x.source) || "—",
-    live: (x) => x.status === "pub",
-    liveLbl: ["Terbit", "Draf"],
-    pub: true,
-    search: (x) => `${s(x.title)} ${s(x.source)}`,
-    form: [
-      {
-        sec: "Sumber",
-        fields: [
-          { k: "source", label: "Nama media", req: true, ph: "cth. Habar Kalimantan" },
-          { k: "date", label: "Tanggal terbit", date: true },
-          { k: "url", label: "Tautan artikel", url: true, req: true, ph: "https://" },
-          { k: "title", label: "Judul asli artikel", req: true, help: "Salin persis seperti di situs media." },
-        ],
-      },
-      { sec: "Ringkasan", fields: [{ bi: ["summaryId", "summaryEn"], label: "Ringkasan singkat", area: true, max: 200, help: "Tulis dengan kata-kata sendiri." }] },
     ],
   },
   gallery: {
@@ -165,8 +140,8 @@ export const CONFIG: Record<ContentType, TypeConfig> = {
 };
 
 // "live" status values per type, used to turn the Terbit / Tampil checkbox into a status.
-export const LIVE_ON: Record<ContentType, string> = { news: "pub", articles: "pub", gallery: "show", videos: "show", jobs: "open" };
-export const LIVE_OFF: Record<ContentType, string> = { news: "draft", articles: "draft", gallery: "hidden", videos: "hidden", jobs: "closed" };
+export const LIVE_ON: Record<ContentType, string> = { news: "pub", gallery: "show", videos: "show", jobs: "open" };
+export const LIVE_OFF: Record<ContentType, string> = { news: "draft", gallery: "hidden", videos: "hidden", jobs: "closed" };
 
 // Labels that appear on the canvas when hovering editable page text and photos.
 export const ED_LABEL = (key: string) =>
@@ -186,7 +161,6 @@ export const IMG_LABEL: Record<string, string> = { hero: "Foto utama beranda", t
 
 export const ICON: Record<string, string> = {
   news: "M4 5h13v14H6a2 2 0 0 1-2-2zM17 9h3v8a2 2 0 0 1-2 2M8 9h5M8 13h5",
-  articles: "M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1",
   gallery: "M3 4h18v16H3zM3 16l5-5 4 4 3-3 6 6",
   videos: "M3 5h18v14H3zM10 9l5 3-5 3z",
   jobs: "M3 7h18v13H3zM8 7V4h8v3M3 12h18",

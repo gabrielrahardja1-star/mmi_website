@@ -202,6 +202,8 @@ and where it differs. **`README.md` is the operating manual** (deploy, accounts,
 - **Stricter than the prototype:** job links must be on JobStreet's own domains (section 8 policy), and
   contributors can never publish or change live items (enforced on the server).
 - **Editor canvas is an iframe**, so the phone view uses the site's real media queries.
+- **No Artikel page** (removed 5 November 2026, the owner's decision, to avoid republishing the wrong outside
+  coverage). Sections 3, 4 and 5 still describe it. The `articles` table stays in the database, unused.
 
 ### Gotchas for whoever changes the code next
 
@@ -217,5 +219,5 @@ Social links are done (footer, `src/components/site/site-footer.tsx`). The "Draf
 company-history box were removed from About; the text itself is still waiting on management.
 
 Vision, mission and values sign-off; company history paragraph; real contact and HR emails;
-real photos; the ShalokalIndonesia article date; the 4 placeholder jobs; logo SVG and white version. Plus: a
+real photos; the 4 placeholder jobs; logo SVG and white version. Plus: a
 "manage users" screen in the editor does not exist yet (accounts are managed on the server, README section 6).

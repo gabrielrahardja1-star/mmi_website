@@ -6,10 +6,9 @@ import { resolve } from "node:path";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { count } from "drizzle-orm";
 import { Pool } from "pg";
-import { articles, jobs, news, pageCopy } from "../src/db/schema";
+import { jobs, news, pageCopy } from "../src/db/schema";
 
 type SeedNews = { cat: string; date: string; tId: string; tEn: string; sId: string; sEn: string; status: string };
-type SeedArticle = { src: string; url: string; date: string; title: string; sumId: string; sumEn: string; status: string };
 type SeedJob = { tId: string; tEn: string; loc: string; typeId: string; typeEn: string; url: string; status: string; order: number };
 
 function load<T>(file: string): T[] {
@@ -39,22 +38,6 @@ async function main() {
       );
       console.log("news: seeded");
     } else console.log("news: already has rows, skipped");
-
-    const [a] = await db.select({ c: count() }).from(articles);
-    if (a.c === 0) {
-      await db.insert(articles).values(
-        load<SeedArticle>("articles.json").map((r) => ({
-          source: r.src,
-          url: r.url,
-          date: r.date || null, // the ShalokalIndonesia article has no date yet
-          title: r.title,
-          summaryId: r.sumId,
-          summaryEn: r.sumEn,
-          status: r.status,
-        })),
-      );
-      console.log("articles: seeded");
-    } else console.log("articles: already has rows, skipped");
 
     const [j] = await db.select({ c: count() }).from(jobs);
     if (j.c === 0) {

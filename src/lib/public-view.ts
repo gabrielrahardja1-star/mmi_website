@@ -9,7 +9,6 @@ export function toPublicContent(raw: RawContent, copy: Copy, lang: ViewLang): Si
     lang,
     copy,
     news: raw.news.filter((n) => n.status === "pub").sort(byDateDesc),
-    articles: raw.articles.filter((a) => a.status === "pub").sort(byDateDesc),
     gallery: raw.gallery.filter((g) => g.status === "show").sort(byDateDesc),
     videos: raw.videos.filter((v) => v.status === "show").sort(byDateDesc),
     jobs: raw.jobs.filter((j) => j.status === "open").sort((a, b) => a.sortOrder - b.sortOrder),

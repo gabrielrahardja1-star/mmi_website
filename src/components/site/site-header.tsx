@@ -10,7 +10,6 @@ const NAV_LABEL: Record<PageKey, [string, string]> = {
   home: ["Beranda", "Home"],
   about: ["Tentang Kami", "About Us"],
   media: ["Media", "Media"],
-  articles: ["Artikel", "Articles"],
   careers: ["Karir", "Careers"],
 };
 
