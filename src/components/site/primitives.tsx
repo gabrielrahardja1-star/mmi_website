@@ -98,6 +98,8 @@ export function PhotoSlot({
   tagEn,
   hintId,
   hintEn,
+  altId,
+  altEn,
 }: {
   slot: string;
   src?: string;
@@ -108,10 +110,12 @@ export function PhotoSlot({
   tagEn: string;
   hintId: string;
   hintEn: string;
+  altId: string;
+  altEn: string;
 }) {
   return (
     <div className={`${className}${src ? " has-img" : ""}`} {...(edit ? { "data-img": slot } : {})}>
-      {src && <img src={src} alt="" />}
+      {src && <img src={src} alt={lang === "en" ? altEn : altId} />}
       {edit && (
         <span className="tag">
           <b>

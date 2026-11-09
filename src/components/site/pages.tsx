@@ -54,6 +54,8 @@ export function HomePage({ content, edit }: PageProps) {
               tagEn="Hero photo"
               hintId="Foto fasilitas atau kru tambang."
               hintEn="Mine facilities or crew photo."
+              altId="Area tambang PT Merge Mining Industri"
+              altEn="PT Merge Mining Industri mine site"
             />
             <Ed c={c} edit={edit} k="home-figcaption-1" as="figcaption" />
           </figure>
@@ -80,6 +82,8 @@ export function HomePage({ content, edit }: PageProps) {
               tagEn="Team photo (wide)"
               hintId="Foto bersama kru dan staf."
               hintEn="Group photo of crew and staff."
+              altId="Kru tambang PT Merge Mining Industri"
+              altEn="PT Merge Mining Industri mine crew"
             />
             <div className="b-tile">
               <span className="k">
@@ -194,6 +198,8 @@ export function AboutPage({ content, edit }: PageProps) {
             tagEn="Operations photo (4:3)"
             hintId="Fasilitas permukaan atau area kerja."
             hintEn="Surface facilities or work area."
+            altId="Fasilitas permukaan PT Merge Mining Industri"
+            altEn="PT Merge Mining Industri surface facilities"
           />
         </div>
       </section>
