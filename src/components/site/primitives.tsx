@@ -87,7 +87,7 @@ export function Empty({
 }
 
 // A photo slot (hero, team, about). With a photo it fills the frame; without one it shows the
-// brief for the photographer, as in the prototype.
+// brief for the photographer, as in the prototype, but only in the editor: visitors see a plain block.
 export function PhotoSlot({
   slot,
   src,
@@ -112,12 +112,14 @@ export function PhotoSlot({
   return (
     <div className={`${className}${src ? " has-img" : ""}`} {...(edit ? { "data-img": slot } : {})}>
       {src && <img src={src} alt="" />}
-      <span className="tag">
-        <b>
-          <Bi id={tagId} en={tagEn} lang={lang} />
-        </b>
-        <Bi id={hintId} en={hintEn} lang={lang} />
-      </span>
+      {edit && (
+        <span className="tag">
+          <b>
+            <Bi id={tagId} en={tagEn} lang={lang} />
+          </b>
+          <Bi id={hintId} en={hintEn} lang={lang} />
+        </span>
+      )}
     </div>
   );
 }

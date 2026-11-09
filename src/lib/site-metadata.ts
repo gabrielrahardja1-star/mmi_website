@@ -11,9 +11,9 @@ const SHARE_IMAGE = "/static/logo-mark.png";
 const META: Record<Lang, Record<PageKey, { title: string; description: string }>> = {
   id: {
     home: {
-      title: `${SITE_NAME} | Tambang batu bara bawah tanah`,
+      title: `${SITE_NAME} (MergeCoal) | Tambang batu bara bawah tanah`,
       description:
-        "PT Merge Mining Industri mengelola tambang batu bara bawah tanah dengan metode longwall di Kecamatan Sungai Pinang, Kalimantan Selatan.",
+        "PT Merge Mining Industri (MergeCoal) mengelola tambang batu bara bawah tanah dengan metode longwall di Kecamatan Sungai Pinang, Kalimantan Selatan.",
     },
     about: {
       title: `Tentang Kami | ${SITE_NAME}`,
@@ -30,9 +30,9 @@ const META: Record<Lang, Record<PageKey, { title: string; description: string }>
   },
   en: {
     home: {
-      title: `${SITE_NAME} | Underground coal mining`,
+      title: `${SITE_NAME} (MergeCoal) | Underground coal mining`,
       description:
-        "PT Merge Mining Industri runs an underground longwall coal mine in Sungai Pinang District, South Kalimantan.",
+        "PT Merge Mining Industri (MergeCoal) runs an underground longwall coal mine in Sungai Pinang District, South Kalimantan.",
     },
     about: {
       title: `About Us | ${SITE_NAME}`,
@@ -118,6 +118,7 @@ const originOf = () => getEnv().PUBLIC_ORIGIN.replace(/\/$/, "");
 export const organizationData = (sameAs: string[]) => ({
   "@type": "Organization",
   name: SITE_NAME,
+  alternateName: ["MergeCoal", "MMI"],
   url: originOf(),
   logo: originOf() + SHARE_IMAGE,
   sameAs,

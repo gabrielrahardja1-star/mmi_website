@@ -14,8 +14,8 @@ first deployment. If something is broken, go to section 11.
 
 - **Deployed and running** on the VPS: <https://mergecoal.com> (with a Let's Encrypt certificate) and the
   editor at <https://cms.mmiinternal.online>. Two admin accounts exist.
-- **Not launched yet:** `SITE_INDEXABLE=false`, so search engines are told to stay away, and the content is
-  still the starter content (sample news, placeholder jobs, grey photo placeholders). See section 9.
+- **Launched to search engines on 5 November 2026:** `SITE_INDEXABLE=true`. Still open: Vision and Mission
+  sign-off, and real photos for the hero, team and About slots. See section 9.
 - **DNS move:** `mergecoal.com` was moved from Hostinger's DNS to Cloudflare on 29 October 2026. Some local
   providers kept showing Hostinger's parking page for up to about 48 hours afterwards (see section 11).
 

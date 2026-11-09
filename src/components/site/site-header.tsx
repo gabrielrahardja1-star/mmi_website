@@ -54,7 +54,7 @@ export function SiteHeader({
     <header className="site">
       <div className="wrap">
         <Link className="brand" href={pagePath("home", lang)} aria-label="Merge Mining Industri">
-          <img src="/static/logo-mark.png" alt="" />
+          <img src="/static/logo-mark.png" alt="MergeCoal" />
           <span>Merge Mining Industri</span>
         </Link>
         <button

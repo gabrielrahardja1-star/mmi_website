@@ -197,8 +197,8 @@ and where it differs. **`README.md` is the operating manual** (deploy, accounts,
   Postgres. Photos: a local folder, not S3.
 - **English has its own URLs** (`/en/...`) so `hreflang` and per-language titles work; the toggle is a link
   and is remembered in a cookie.
-- **Search engines are off until launch** (`SITE_INDEXABLE`), with noindex, a closed robots.txt and an empty
-  sitemap.
+- **Search engines were kept off until launch** with `SITE_INDEXABLE`. Launched 5 November 2026: it is now `true`
+  on the server, before Vision and Mission sign-off.
 - **Stricter than the prototype:** job links must be on JobStreet's own domains (section 8 policy), and
   contributors can never publish or change live items (enforced on the server).
 - **Editor canvas is an iframe**, so the phone view uses the site's real media queries.
